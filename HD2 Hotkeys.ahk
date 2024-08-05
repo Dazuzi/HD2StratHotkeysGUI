@@ -1,4 +1,10 @@
-﻿#Requires Autohotkey v2
+/*
+Helldivers 2 Stratagem AutoHotkey v2 script with GUI
+
+https://github.com/Dazuzi/HD2StratHotkeysGUI
+*/
+
+#Requires Autohotkey v2
 #SingleInstance Force
 
 GameTitle	:= "HELLDIVERS™ 2"
@@ -176,9 +182,9 @@ GUIConstructor() {
 	HotkeysGUI.Add("Text", "Section", "Minimum press duration/delay between presses")
 	MinimumDelayEdit := HotkeysGUI.Add("Edit", "ys Limit3 Number w75 Background4B4B4B")
 	MinimumDelayEdit.OnEvent("Change", SettingsChange.Bind("MinimumDelay"))
-	Global MinimumDelay := HotkeysGUI.Add("UpDown", "vMinUpDown Range10-999", IniRead(ConfigFile, "Settings", "MinimumDelay", "25"))
+	Global MinimumDelay := HotkeysGUI.Add("UpDown", "vMinUpDown Range10-999", IniRead(ConfigFile, "Settings", "MinimumDelay", "40"))
 	MinimumDelay.OnEvent("Change", SettingsChange.Bind("MinimumDelay"))
-	HotkeysGUI.Add("Text", "ys", "milliseconds (Default: 25)")
+	HotkeysGUI.Add("Text", "ys", "milliseconds (Default: 40)")
 	HotkeysGUI.Add("Text", "xs", "If the macro is failing to input the stratagem properly, try increasing this value.")
 
 	SettingsChange(SettingName, GUIControlID, *) {
