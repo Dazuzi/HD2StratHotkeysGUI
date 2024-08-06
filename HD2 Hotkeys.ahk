@@ -1,12 +1,13 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 1.1
+Version 1.1.1
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 #Requires Autohotkey v2
 #SingleInstance Force
+#NoTrayIcon
 
 GameTitle	:= "HELLDIVERS™ 2"
 ConfigFile	:= "HD2 Config.ini"
@@ -68,6 +69,7 @@ Stratagems	:= [{Name: "None"}
 			, {Name: "APW-1 Anti-Materiel Rifle", Keys: ["2", "3", "4", "1", "2"]}
 			, {Name: "EAT-17 Expendable Anti-Tank", Keys: ["2", "2", "3", "1", "4"]}
 			, {Name: "LAS-99 Quasar Cannon", Keys: ["2", "2", "1", "3", "4"]}
+			, {Name: "Anti-Tank Mines", Keys: ["2", "3", "1", "1"]}
 			, {Name: "FX-12 Shield Generator Relay", Keys: ["2", "2", "3", "4", "3", "4"]}
 			, {Name: "A/M-23 EMS Mortar Sentry", Keys: ["2", "1", "4", "2", "4"]}
 			, {Name: "A/MLS-4X Rocket Sentry", Keys: ["2", "1", "4", "4", "3"]}
@@ -97,8 +99,7 @@ GUIConstructor() {
 
 	HotkeysGUI.Add("Picture", "w776 h-1", "HD2 Banner.png")
 
-	Tab := HotkeysGUI.Add("Tab3", "Background383333 cE1CB00", ["Hotkeys", "Settings", "About"])
-	Tab.SetFont("bold")
+	Tab := HotkeysGUI.Add("Tab3", "Background383333 cE1CB00", [" Hotkeys ", " Settings ", " About "])
 	Tab.UseTab(1)
 
 	HotkeysGUI.Add("Text", "Section " ColumnWidth, "Numlock")
@@ -224,7 +225,7 @@ GUIConstructor() {
 
 	Temp := HotkeysGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI")
 	Temp.SetFont("bold s10")
-	HotkeysGUI.Add("Text", "xs", "Version 1.1")
+	HotkeysGUI.Add("Text", "xs", "Version 1.1.1")
 	HotkeysGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
