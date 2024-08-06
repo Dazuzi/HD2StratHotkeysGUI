@@ -1,5 +1,6 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
+Version 1.1
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
@@ -96,91 +97,75 @@ GUIConstructor() {
 
 	HotkeysGUI.Add("Picture", "w776 h-1", "HD2 Banner.png")
 
-	Tab := HotkeysGUI.Add("Tab3", "Background383333", ["Hotkeys", "Settings"])
+	Tab := HotkeysGUI.Add("Tab3", "Background383333 cE1CB00", ["Hotkeys", "Settings", "About"])
+	Tab.SetFont("bold")
 	Tab.UseTab(1)
 
 	HotkeysGUI.Add("Text", "Section " ColumnWidth, "Numlock")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadDiv")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadMult")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadSub")
-	Global HotkeyNumlock := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumlock.OnEvent("Change", HotkeyChange.Bind("Numlock"))
-	HotkeyNumlock.Value := IniRead(ConfigFile, "Hotkeys", "Numlock", 1)
-	Global HotkeyNumpadDiv := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpadDiv.OnEvent("Change", HotkeyChange.Bind("NumpadDiv"))
-	HotkeyNumpadDiv.Value := IniRead(ConfigFile, "Hotkeys", "NumpadDiv", 1)
-	Global HotkeyNumpadMult := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpadMult.OnEvent("Change", HotkeyChange.Bind("NumpadMult"))
-	HotkeyNumpadMult.Value := IniRead(ConfigFile, "Hotkeys", "NumpadMult", 1)
-	Global HotkeyNumpadSub := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpadSub.OnEvent("Change", HotkeyChange.Bind("NumpadSub"))
-	HotkeyNumpadSub.Value := IniRead(ConfigFile, "Hotkeys", "NumpadSub", 1)
+	Global HotkeyNumlock := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumlock.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpadDiv := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpadDiv.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpadMult := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpadMult.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpadSub := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpadSub.OnEvent("Change", SaveHotkeys)
 
 	HotkeysGUI.Add("Text", "xs y+25 " ColumnWidth, "Numpad7 / NumpadHome")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad8 / NumpadUp")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad9 / NumpadPgUp")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadAdd")
-	Global HotkeyNumpad7 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad7.OnEvent("Change", HotkeyChange.Bind("Numpad7"))
-	HotkeyNumpad7.Value := IniRead(ConfigFile, "Hotkeys", "Numpad7", 1)
-	Global HotkeyNumpad8 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad8.OnEvent("Change", HotkeyChange.Bind("Numpad8"))
-	HotkeyNumpad8.Value := IniRead(ConfigFile, "Hotkeys", "Numpad8", 1)
-	Global HotkeyNumpad9 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad9.OnEvent("Change", HotkeyChange.Bind("Numpad9"))
-	HotkeyNumpad9.Value := IniRead(ConfigFile, "Hotkeys", "Numpad9", 1)
-	Global HotkeyNumpadAdd := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpadAdd.OnEvent("Change", HotkeyChange.Bind("NumpadAdd"))
-	HotkeyNumpadAdd.Value := IniRead(ConfigFile, "Hotkeys", "NumpadAdd", 1)
+	Global HotkeyNumpad7 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad7.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpad8 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad8.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpad9 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad9.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpadAdd := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpadAdd.OnEvent("Change", SaveHotkeys)
 
 	HotkeysGUI.Add("Text", "xs y+25 " ColumnWidth, "Numpad4 / NumpadLeft")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad5 / NumpadClear")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad6 / NumpadRight")
-	Global HotkeyNumpad4 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad4.OnEvent("Change", HotkeyChange.Bind("Numpad4"))
-	HotkeyNumpad4.Value := IniRead(ConfigFile, "Hotkeys", "Numpad4", 1)
-	Global HotkeyNumpad5 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad5.OnEvent("Change", HotkeyChange.Bind("Numpad5"))
-	HotkeyNumpad5.Value := IniRead(ConfigFile, "Hotkeys", "Numpad5", 1)
-	Global HotkeyNumpad6 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad6.OnEvent("Change", HotkeyChange.Bind("Numpad6"))
-	HotkeyNumpad6.Value := IniRead(ConfigFile, "Hotkeys", "Numpad6", 1)
+	Global HotkeyNumpad4 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad4.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpad5 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad5.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpad6 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad6.OnEvent("Change", SaveHotkeys)
 
 	HotkeysGUI.Add("Text", "xs y+25 " ColumnWidth, "Numpad1 / NumpadEnd")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad2 / NumpadDown")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad3 / NumpadPgDn")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadEnter")
-	Global HotkeyNumpad1 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad1.OnEvent("Change", HotkeyChange.Bind("Numpad1"))
-	HotkeyNumpad1.Value := IniRead(ConfigFile, "Hotkeys", "Numpad1", 1)
-	Global HotkeyNumpad2 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad2.OnEvent("Change", HotkeyChange.Bind("Numpad2"))
-	HotkeyNumpad2.Value := IniRead(ConfigFile, "Hotkeys", "Numpad2", 1)
-	Global HotkeyNumpad3 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad3.OnEvent("Change", HotkeyChange.Bind("Numpad3"))
-	HotkeyNumpad3.Value := IniRead(ConfigFile, "Hotkeys", "Numpad3", 1)
-	Global HotkeyNumpadEnter := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpadEnter.OnEvent("Change", HotkeyChange.Bind("NumpadEnter"))
-	HotkeyNumpadEnter.Value := IniRead(ConfigFile, "Hotkeys", "NumpadEnter", 1)
+	Global HotkeyNumpad1 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad1.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpad2 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad2.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpad3 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad3.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumpadEnter := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpadEnter.OnEvent("Change", SaveHotkeys)
 
 	HotkeysGUI.Add("Text", "xs y+25 " ColumnWidth, "Numpad0 / NumpadIns")
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth)
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadDot / NumpadDel")
-	Global HotkeyNumpad0 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpad0.OnEvent("Change", HotkeyChange.Bind("Numpad0"))
-	HotkeyNumpad0.Value := IniRead(ConfigFile, "Hotkeys", "Numpad0", 1)
+	Global HotkeyNumpad0 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpad0.OnEvent("Change", SaveHotkeys)
 	HotkeysGUI.Add("Text", "x+m " ColumnWidth)
-	Global HotkeyNumpadDot := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B " ColumnWidth, StratagemNames)
-	HotkeyNumpadDot.OnEvent("Change", HotkeyChange.Bind("NumpadDot"))
-	HotkeyNumpadDot.Value := IniRead(ConfigFile, "Hotkeys", "NumpadDot", 1)
+	Global HotkeyNumpadDot := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
+	HotkeyNumpadDot.OnEvent("Change", SaveHotkeys)
 
-	HotkeyChange(HotkeyName, GUIControlID, *) {
-		IniWrite GUIControlID.Value, ConfigFile, "Hotkeys", HotkeyName
+	SaveHotkeys(*) {
+		IniWrite HotkeyNumlock.Value " " HotkeyNumpadDiv.Value " " HotkeyNumpadMult.Value " " HotkeyNumpadSub.Value " " HotkeyNumpad7.Value " " HotkeyNumpad8.Value " " HotkeyNumpad9.Value " " HotkeyNumpadAdd.Value " " HotkeyNumpad4.Value " " HotkeyNumpad5.Value " " HotkeyNumpad6.Value " " HotkeyNumpad1.Value " " HotkeyNumpad2.Value " " HotkeyNumpad3.Value " " HotkeyNumpadEnter.Value " " HotkeyNumpad0.Value " " HotkeyNumpadDot.Value, ConfigFile, "Profiles", Profile.Text
 	}
 
 	Tab.UseTab(2)
 	HotkeysGUI.Add("Text", "Section", "Minimum press duration/delay between presses")
-	MinimumDelayEdit := HotkeysGUI.Add("Edit", "ys Limit3 Number w75 Background4B4B4B")
+	MinimumDelayEdit := HotkeysGUI.Add("Edit", "ys Limit3 Number w75 Background4B4B4B cBABABA")
 	MinimumDelayEdit.OnEvent("Change", SettingsChange.Bind("MinimumDelay"))
 	Global MinimumDelay := HotkeysGUI.Add("UpDown", "vMinUpDown Range10-999", IniRead(ConfigFile, "Settings", "MinimumDelay", "40"))
 	MinimumDelay.OnEvent("Change", SettingsChange.Bind("MinimumDelay"))
@@ -199,8 +184,8 @@ GUIConstructor() {
 	HotkeysGUI.Add("Text",, "Left")
 	HotkeysGUI.Add("Text",, "Right")
 
-	Global StratagemKey := HotkeysGUI.Add("DropDownList", "ys Background4B4B4B", ["Control", "Alt", "Shift"])
-	StratagemKey.OnEvent("Change", ChangeKey.Bind("Stratagem", "Control"))
+	Global StratagemKey := HotkeysGUI.Add("DropDownList", "ys Background4B4B4B cBABABA", ["Control", "Alt", "Shift"])
+	StratagemKey.OnEvent("Change", ChangeKey.Bind("StratagemKey", "Control"))
 	StratagemKey.Value := IniRead(ConfigFile, "Settings", "StratagemKey", 1)
 	UpKey := HotkeysGUI.Add("Hotkey", "vUpKey Limit190")
 	UpKey.OnEvent("Change", ChangeKey.Bind("UpKey", "w"))
@@ -235,7 +220,118 @@ GUIConstructor() {
 		StratagemKeys.Push(RightKey.Value)
 	}
 
+	Tab.UseTab(3)
+
+	Temp := HotkeysGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI")
+	Temp.SetFont("bold s10")
+	HotkeysGUI.Add("Text", "xs", "Version 1.1")
+	HotkeysGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
+
 	Tab.UseTab()
+
+	Profiles := IniRead(ConfigFile, "Profiles")
+	ProfileNames := Array()
+	ProfileNames.Push("Default")
+	Loop Parse, Profiles, "`n" {
+		Key := StrSplit(A_LoopField, "=")
+		if (Key[1] != "Default")
+			ProfileNames.Push(Key[1])
+	}
+
+	HotkeysGUI.Add("Text", "Section", "Profile")
+	Profile := HotkeysGUI.Add("DropDownList", "ys w150 Background4B4B4B cBABABA", ProfileNames)
+	Profile.OnEvent("Change", ChangeProfile)
+	Profile.Focus
+	Temp := IniRead(ConfigFile, "Settings", "ActiveProfile", "Default")
+	if (ProfileExists(Temp))
+		Profile.Text := Temp
+	else
+		Profile.Text := "Default"
+	AddProfile := HotkeysGUI.Add("Button", "ys w80 Background171717", "Add profile")
+	AddProfile.OnEvent("Click", AddProfileClick)
+	DeleteProfile := HotkeysGUI.Add("Button", "ys w80 Background171717", "Delete profile")
+	DeleteProfile.OnEvent("Click", DeleteProfileClick)
+
+	ChangeProfile
+
+	ChangeProfile(*) {
+		if (Profile.Text = "Default")
+			DeleteProfile.Enabled := False
+		else
+			DeleteProfile.Enabled := True
+		Settings := StrSplit(IniRead(ConfigFile, "Profiles", Profile.Text, "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"), " ")
+		HotkeyNumlock.Value := Settings[1]
+		HotkeyNumpadDiv.Value := Settings[2]
+		HotkeyNumpadMult.Value := Settings[3]
+		HotkeyNumpadSub.Value := Settings[4]
+		HotkeyNumpad7.Value := Settings[5]
+		HotkeyNumpad8.Value := Settings[6]
+		HotkeyNumpad9.Value := Settings[7]
+		HotkeyNumpadAdd.Value := Settings[8]
+		HotkeyNumpad4.Value := Settings[9]
+		HotkeyNumpad5.Value := Settings[10]
+		HotkeyNumpad6.Value := Settings[11]
+		HotkeyNumpad1.Value := Settings[12]
+		HotkeyNumpad2.Value := Settings[13]
+		HotkeyNumpad3.Value := Settings[14]
+		HotkeyNumpadEnter.Value := Settings[15]
+		HotkeyNumpad0.Value := Settings[16]
+		HotkeyNumpadDot.Value := Settings[17]
+		IniWrite Profile.Text, ConfigFile, "Settings", "ActiveProfile"
+	}
+
+	AddProfileClick(*) {
+		ProfileName := "MyNewProfile"
+		TryAgain:
+		NewProfile := InputBox("Enter an alphanumeric name for a new profile:", "HELLDIVERS™ 2 Stratagem Hotkeys", "h100", ProfileName)
+		if (NewProfile.Result = "Cancel")
+			Return
+		else if (StrLen(NewProfile.Value) > 64) {
+			if (MsgBox("The profile name can be a maximum of 64 characters long, please try again.", "HELLDIVERS™ 2 Stratagem Hotkeys", "RC IconX 8192") = "Retry") {
+				ProfileName := NewProfile.Value
+				Goto TryAgain
+			}
+			else
+				Return
+		}
+		else if (IsAlnum(NewProfile.Value)) {
+			if (ProfileExists(NewProfile.Value)) {
+				if (MsgBox("A profile called `"" NewProfile.Value "`" already exists, please try again.", "HELLDIVERS™ 2 Stratagem Hotkeys", "RC IconX 8192") = "Retry") {
+					ProfileName := NewProfile.Value
+					Goto TryAgain
+				}
+				else
+					Return
+			}
+			ProfileNames.Push(NewProfile.Value)
+			Profile.Delete
+			Profile.Add(ProfileNames)
+			Profile.Text := NewProfile.Value
+			SaveHotkeys
+			ChangeProfile
+		}
+		else if (MsgBox("The profile name can only contain letters and numbers, please try again.", "HELLDIVERS™ 2 Stratagem Hotkeys", "RC IconX 8192") = "Retry") {
+			ProfileName := NewProfile.Value
+			Goto TryAgain
+		}
+	}
+
+	ProfileExists(NewProfile) {
+		for (Profile in ProfileNames) {
+			if (Profile = NewProfile)
+				Return True
+		}
+		Return False
+	}
+
+	DeleteProfileClick(*) {
+		if (MsgBox("Do you really want to delete `"" Profile.Text "`" profile?", "HELLDIVERS™ 2 Stratagem Hotkeys", "YN Icon? 8192") = "No")
+			Return
+		IniDelete ConfigFile, "Profiles", Profile.Text
+		Profile.Delete(Profile.Value)
+		Profile.Text := "Default"
+		ChangeProfile
+	}
 
 	HotkeysGUI.OnEvent("Close", (*) => ExitApp())
 	return HotkeysGUI
