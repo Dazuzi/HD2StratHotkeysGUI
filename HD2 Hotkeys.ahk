@@ -229,7 +229,9 @@ GUIConstructor() {
 
 	Tab.UseTab()
 
-	Profiles := IniRead(ConfigFile, "Profiles")
+	try Profiles := IniRead(ConfigFile, "Profiles")
+	catch
+		Profiles := ""
 	ProfileNames := Array()
 	ProfileNames.Push("Default")
 	Loop Parse, Profiles, "`n" {
