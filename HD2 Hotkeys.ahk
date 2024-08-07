@@ -1,6 +1,6 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 1.1.1
+Version 1.2
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
@@ -9,159 +9,207 @@ https://github.com/Dazuzi/HD2StratHotkeysGUI
 #SingleInstance Force
 #NoTrayIcon
 
+HotkeyStratagems := ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"]
+HotkeyButtonHandles := ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]
 GameTitle	:= "HELLDIVERS™ 2"
 ConfigFile	:= "HD2 Config.ini"
-Stratagems	:= [{Name: "None"}
-			, {Name: "Reinforce", Keys: ["1", "2", "4", "3", "1"]}
-			, {Name: "SoS Beacon", Keys: ["1", "2", "4", "1"]}
-			, {Name: "Resupply", Keys: ["2", "2", "1", "4"]}
-			, {Name: "Eagle Rearm", Keys: ["1", "1", "3", "1", "4"]}
-			, {Name: "SSSD Delivery", Keys: ["2", "2", "2", "1", "1"]}
-			, {Name: "Prospecting Drill", Keys: ["2", "2", "3", "4", "2", "2"]}
-			, {Name: "Super Earth Flag", Keys: ["2", "1", "2", "1"]}
-			, {Name: "NUX-223 Hellbomb", Keys: ["2", "1", "3", "2", "1", "4", "2", "1"]}
-			, {Name: "Upload Data", Keys: ["3", "4", "1", "1", "1"]}
-			, {Name: "Seismic Probe", Keys: ["1", "1", "3", "4", "2", "2"]}
-			, {Name: "Orbital Illumination Flare", Keys: ["4", "4", "3", "3"]}
-			, {Name: "SEAF Artillery", Keys: ["4", "1", "1", "2"]}
-			, {Name: "Dark Fluid Vessel", Keys: ["1", "3", "4", "2", "1", "1"]}
-			, {Name: "Tectonic Drill", Keys: ["1", "2", "1", "2", "1", "2"]}
-			, {Name: "Hive Breaker Drill", Keys: ["3", "1", "2", "4", "2", "2"]}
-			, {Name: "Eagle 500kg Bomb", Keys: ["1", "4", "2", "2", "2"]}
-			, {Name: "Orbital Gatling Barrage", Keys: ["4", "2", "3", "1", "1"]}
-			, {Name: "Eagle Airstrike", Keys: ["1", "4", "2", "4"]}
-			, {Name: "Orbital Walking Barrage", Keys: ["4", "2", "4", "2", "4", "2"]}
-			, {Name: "Eagle Strafing Run", Keys: ["1", "4", "4"]}
-			, {Name: "Orbital EMS Strike", Keys: ["4", "4", "3", "2"]}
-			, {Name: "Eagle Smoke Strike", Keys: ["1", "4", "1", "2"]}
-			, {Name: "Orbital Gas Strike", Keys: ["4", "4", "2", "4"]}
-			, {Name: "Orbital Railcannon Strike", Keys: ["4", "1", "2", "2", "4"]}
-			, {Name: "Eagle Cluster Bomb", Keys: ["1", "4", "2", "2", "4"]}
-			, {Name: "Orbital Smoke Strike", Keys: ["4", "4", "2", "1"]}
-			, {Name: "Orbital Airburst Strike", Keys: ["4", "4", "4"]}
-			, {Name: "Orbital Laser", Keys: ["4", "2", "1", "4", "2"]}
-			, {Name: "Orbital Precision Strike", Keys: ["4", "4", "1"]}
-			, {Name: "Orbital 380mm HE Barrage", Keys: ["4", "2", "1", "1", "3", "2", "2"]}
-			, {Name: "Eagle Napalm Airstrike", Keys: ["1", "4", "2", "1"]}
-			, {Name: "Orbital 120mm HE Barrage", Keys: ["4", "4", "2", "3", "4", "2"]}
-			, {Name: "Eagle 110mm Rocket Pods", Keys: ["1", "4", "1", "3"]}
-			, {Name: "MLS-4X Commando", Keys: ["2", "3", "1", "2", "4"]}
-			, {Name: "EXO-49 Emancipator Exosuit", Keys: ["3", "2", "4", "1", "3", "2", "1"]}
-			, {Name: "M-105 Stalwart", Keys: ["2", "3", "2", "1", "1", "3"]}
-			, {Name: "AC-8 Autocannon", Keys: ["2", "3", "2", "1", "1", "4"]}
-			, {Name: "EXO-45 Patriot Exosuit", Keys: ["3", "2", "4", "1", "3", "2", "2"]}
-			, {Name: "MG-206 Heavy Machine Gun", Keys: ["2", "3", "1", "2", "2"]}
-			, {Name: "SH-32 Shield Generator Pack", Keys: ["2", "1", "3", "4", "3", "4"]}
-			, {Name: "RL-77 Airburst Rocket Launcher", Keys: ["2", "1", "1", "3", "4"]}
-			, {Name: "RS-422 Railgun", Keys: ["2", "4", "2", "1", "3", "4"]}
-			, {Name: "LAS-98 Laser Cannon", Keys: ["2", "3", "2", "1", "3"]}
-			, {Name: "ARC-3 Arc Thrower", Keys: ["2", "4", "2", "1", "3", "3"]}
-			, {Name: "AX/AR-23 `"Guard Dog`"", Keys: ["2", "1", "3", "1", "4", "2"]}
-			, {Name: "FAF-14 Spear", Keys: ["2", "2", "1", "2", "2"]}
-			, {Name: "GL-21 Grenade Launcher", Keys: ["2", "3", "1", "3", "2"]}
-			, {Name: "MG-43 Machine Gun", Keys: ["2", "3", "2", "1", "4"]}
-			, {Name: "SH-20 Ballistic Shield Backpack", Keys: ["2", "3", "2", "2", "1", "3"]}
-			, {Name: "B-1 Supply Pack", Keys: ["2", "3", "2", "1", "1", "2"]}
-			, {Name: "FLAM-40 Flamethrower", Keys: ["2", "3", "1", "2", "1"]}
-			, {Name: "AX/LAS-5 `"Guard Dog`" Rover", Keys: ["2", "1", "3", "1", "4", "4"]}
-			, {Name: "GR-8 Recoilless Rifle", Keys: ["2", "3", "4", "4", "3"]}
-			, {Name: "LIFT-850 Jump Pack", Keys: ["2", "1", "1", "2", "1"]}
-			, {Name: "APW-1 Anti-Materiel Rifle", Keys: ["2", "3", "4", "1", "2"]}
-			, {Name: "EAT-17 Expendable Anti-Tank", Keys: ["2", "2", "3", "1", "4"]}
-			, {Name: "LAS-99 Quasar Cannon", Keys: ["2", "2", "1", "3", "4"]}
-			, {Name: "Anti-Tank Mines", Keys: ["2", "3", "1", "1"]}
-			, {Name: "FX-12 Shield Generator Relay", Keys: ["2", "2", "3", "4", "3", "4"]}
-			, {Name: "A/M-23 EMS Mortar Sentry", Keys: ["2", "1", "4", "2", "4"]}
-			, {Name: "A/MLS-4X Rocket Sentry", Keys: ["2", "1", "4", "4", "3"]}
-			, {Name: "A/G-16 Gatling Sentry", Keys: ["2", "1", "4", "3"]}
-			, {Name: "A/ARC-3 Tesla Tower", Keys: ["2", "1", "4", "1", "3", "4"]}
-			, {Name: "A/M-12 Mortar Sentry", Keys: ["2", "1", "4", "4", "2"]}
-			, {Name: "MD-6 Anti-Personnel Minefield", Keys: ["2", "3", "1", "4"]}
-			, {Name: "A/MG-43 Machine Gun Sentry", Keys: ["2", "1", "4", "4", "1"]}
-			, {Name: "A/AC-8 Autocannon Sentry", Keys: ["2", "1", "4", "1", "3", "1"]}
-			, {Name: "MD-I4 Incendiary Mines", Keys: ["2", "3", "3", "2"]}
-			, {Name: "E/MG-101 HMG Emplacement", Keys: ["2", "1", "3", "4", "4", "3"]}]
+Stratagems	:= [{Category:"No Stratagem", Name: "No Stratagem", Icon:"No Stratagem.png"}
+			, {Category:"Common",	Name:"Reinforce",						Icon:"Reinforce.png",					Keys:["1", "2", "4", "3", "1"]}
+			, {Category:"Common",	Name:"SoS Beacon",						Icon:"SoS Beacon.png",					Keys:["1", "2", "4", "1"]}
+			, {Category:"Common",	Name:"Resupply",						Icon:"Resupply.png",					Keys:["2", "2", "1", "4"]}
+			, {Category:"Common",	Name:"Eagle Rearm",						Icon:"Eagle Rearm.png",					Keys:["1", "1", "3", "1", "4"]}
+			, {Category:"Mission",	Name:"SSSD Delivery",					Icon:"SSSD Delivery.png",				Keys:["2", "2", "2", "1", "1"]}
+			, {Category:"Mission",	Name:"Prospecting Drill",				Icon:"Prospecting Drill.png",			Keys:["2", "2", "3", "4", "2", "2"]}
+			, {Category:"Mission",	Name:"Super Earth Flag",				Icon:"Super Earth Flag.png",			Keys:["2", "1", "2", "1"]}
+			, {Category:"Mission",	Name:"NUX-223 Hellbomb",				Icon:"Hellbomb.png",					Keys:["2", "1", "3", "2", "1", "4", "2", "1"]}
+			, {Category:"Mission",	Name:"Upload Data",						Icon:"Upload Data.png",					Keys:["3", "4", "1", "1", "1"]}
+			, {Category:"Mission",	Name:"Seismic Probe",					Icon:"Seismic Probe.png",				Keys:["1", "1", "3", "4", "2", "2"]}
+			, {Category:"Mission",	Name:"Orbital Illumination Flare",		Icon:"Orbital Illumination Flare.png",	Keys:["4", "4", "3", "3"]}
+			, {Category:"Mission",	Name:"SEAF Artillery",					Icon:"SEAF Artillery.png",				Keys:["4", "1", "1", "2"]}
+			, {Category:"Mission",	Name:"Dark Fluid Vessel",				Icon:"Dark Fluid Vessel.png",			Keys:["1", "3", "4", "2", "1", "1"]}
+			, {Category:"Mission",	Name:"Tectonic Drill",					Icon:"Tectonic Drill.png",				Keys:["1", "2", "1", "2", "1", "2"]}
+			, {Category:"Mission",	Name:"Hive Breaker Drill",				Icon:"Hive Breaker Drill.png",			Keys:["3", "1", "2", "4", "2", "2"]}
+			, {Category:"Offensive",Name:"Eagle 500kg Bomb",				Icon:"Eagle 500kg Bomb.png",			Keys:["1", "4", "2", "2", "2"]}
+			, {Category:"Offensive",Name:"Orbital Gatling Barrage",			Icon:"Orbital Gatling Barrage.png",		Keys:["4", "2", "3", "1", "1"]}
+			, {Category:"Offensive",Name:"Eagle Airstrike",					Icon:"Eagle Airstrike.png",				Keys:["1", "4", "2", "4"]}
+			, {Category:"Offensive",Name:"Orbital Walking Barrage",			Icon:"Orbital Walking Barrage.png",		Keys:["4", "2", "4", "2", "4", "2"]}
+			, {Category:"Offensive",Name:"Eagle Strafing Run",				Icon:"Eagle Strafing Run.png",			Keys:["1", "4", "4"]}
+			, {Category:"Offensive",Name:"Orbital EMS Strike",				Icon:"Orbital EMS Strike.png",			Keys:["4", "4", "3", "2"]}
+			, {Category:"Offensive",Name:"Eagle Smoke Strike",				Icon:"Eagle Smoke Strike.png",			Keys:["1", "4", "1", "2"]}
+			, {Category:"Offensive",Name:"Orbital Gas Strike",				Icon:"Orbital Gas Strike.png",			Keys:["4", "4", "2", "4"]}
+			, {Category:"Offensive",Name:"Orbital Railcannon Strike",		Icon:"Orbital Railcannon Strike.png",	Keys:["4", "1", "2", "2", "4"]}
+			, {Category:"Offensive",Name:"Eagle Cluster Bomb",				Icon:"Eagle Cluster Bomb.png",			Keys:["1", "4", "2", "2", "4"]}
+			, {Category:"Offensive",Name:"Orbital Smoke Strike",			Icon:"Orbital Smoke Strike.png",		Keys:["4", "4", "2", "1"]}
+			, {Category:"Offensive",Name:"Orbital Airburst Strike",			Icon:"Orbital Airburst Strike.png",		Keys:["4", "4", "4"]}
+			, {Category:"Offensive",Name:"Orbital Laser",					Icon:"Orbital Laser.png",				Keys:["4", "2", "1", "4", "2"]}
+			, {Category:"Offensive",Name:"Orbital Precision Strike",		Icon:"Orbital Precision Strike.png",	Keys:["4", "4", "1"]}
+			, {Category:"Offensive",Name:"Orbital 380mm HE Barrage",		Icon:"Orbital 380MM HE Barrage.png",	Keys:["4", "2", "1", "1", "3", "2", "2"]}
+			, {Category:"Offensive",Name:"Eagle Napalm Airstrike",			Icon:"Eagle Napalm Airstrike.png",		Keys:["1", "4", "2", "1"]}
+			, {Category:"Offensive",Name:"Orbital 120mm HE Barrage",		Icon:"Orbital 120MM HE Barrage.png",	Keys:["4", "4", "2", "3", "4", "2"]}
+			, {Category:"Offensive",Name:"Eagle 110mm Rocket Pods",			Icon:"Eagle 110MM Rocket Pods.png",		Keys:["1", "4", "1", "3"]}
+			, {Category:"Supply",	Name:"MLS-4X Commando",					Icon:"Commando.png",					Keys:["2", "3", "1", "2", "4"]}
+			, {Category:"Supply",	Name:"EXO-49 Emancipator Exosuit",		Icon:"Emancipator Exosuit.png",			Keys:["3", "2", "4", "1", "3", "2", "1"]}
+			, {Category:"Supply",	Name:"M-105 Stalwart",					Icon:"Stalwart.png",					Keys:["2", "3", "2", "1", "1", "3"]}
+			, {Category:"Supply",	Name:"AC-8 Autocannon",					Icon:"Autocannon.png",					Keys:["2", "3", "2", "1", "1", "4"]}
+			, {Category:"Supply",	Name:"EXO-45 Patriot Exosuit",			Icon:"Patriot Exosuit.png",				Keys:["3", "2", "4", "1", "3", "2", "2"]}
+			, {Category:"Supply",	Name:"MG-206 Heavy Machine Gun",		Icon:"Heavy Machine Gun.png",			Keys:["2", "3", "1", "2", "2"]}
+			, {Category:"Supply",	Name:"SH-32 Shield Generator Pack",		Icon:"Shield Generator Pack.png",		Keys:["2", "1", "3", "4", "3", "4"]}
+			, {Category:"Supply",	Name:"RL-77 Airburst Rocket Launcher",	Icon:"Airburst Rocket Launcher.png",	Keys:["2", "1", "1", "3", "4"]}
+			, {Category:"Supply",	Name:"RS-422 Railgun",					Icon:"Railgun.png",						Keys:["2", "4", "2", "1", "3", "4"]}
+			, {Category:"Supply",	Name:"LAS-98 Laser Cannon",				Icon:"Laser Cannon.png",				Keys:["2", "3", "2", "1", "3"]}
+			, {Category:"Supply",	Name:"ARC-3 Arc Thrower",				Icon:"Arc Thrower.png",					Keys:["2", "4", "2", "1", "3", "3"]}
+			, {Category:"Supply",	Name:"AX/AR-23 `"Guard Dog`"",			Icon:"Guard Dog.png",					Keys:["2", "1", "3", "1", "4", "2"]}
+			, {Category:"Supply",	Name:"FAF-14 Spear",					Icon:"Spear.png",						Keys:["2", "2", "1", "2", "2"]}
+			, {Category:"Supply",	Name:"GL-21 Grenade Launcher",			Icon:"Grenade Launcher.png",			Keys:["2", "3", "1", "3", "2"]}
+			, {Category:"Supply",	Name:"MG-43 Machine Gun",				Icon:"Machine Gun.png",					Keys:["2", "3", "2", "1", "4"]}
+			, {Category:"Supply",	Name:"SH-20 Ballistic Shield Backpack",	Icon:"Ballistic Shield Backpack.png",	Keys:["2", "3", "2", "2", "1", "3"]}
+			, {Category:"Supply",	Name:"B-1 Supply Pack",					Icon:"Supply Pack.png",					Keys:["2", "3", "2", "1", "1", "2"]}
+			, {Category:"Supply",	Name:"FLAM-40 Flamethrower",			Icon:"Flamethrower.png",				Keys:["2", "3", "1", "2", "1"]}
+			, {Category:"Supply",	Name:"AX/LAS-5 `"Guard Dog`" Rover",	Icon:"Guard Dog Rover.png",				Keys:["2", "1", "3", "1", "4", "4"]}
+			, {Category:"Supply",	Name:"GR-8 Recoilless Rifle",			Icon:"Recoilless Rifle.png",			Keys:["2", "3", "4", "4", "3"]}
+			, {Category:"Supply",	Name:"LIFT-850 Jump Pack",				Icon:"Jump Pack.png",					Keys:["2", "1", "1", "2", "1"]}
+			, {Category:"Supply",	Name:"APW-1 Anti-Materiel Rifle",		Icon:"Anti-Material Rifle.png",			Keys:["2", "3", "4", "1", "2"]}
+			, {Category:"Supply",	Name:"EAT-17 Expendable Anti-Tank",		Icon:"Expendable Anti-Tank.png",		Keys:["2", "2", "3", "1", "4"]}
+			, {Category:"Supply",	Name:"LAS-99 Quasar Cannon",			Icon:"Quasar Cannon.png",				Keys:["2", "2", "1", "3", "4"]}
+			, {Category:"Defensive",Name:"Anti-Tank Mines",					Icon:"Anti-Tank Mines.png",				Keys:["2", "3", "1", "1"]}
+			, {Category:"Defensive",Name:"FX-12 Shield Generator Relay",	Icon:"Shield Generator Relay.png",		Keys:["2", "2", "3", "4", "3", "4"]}
+			, {Category:"Defensive",Name:"A/M-23 EMS Mortar Sentry",		Icon:"EMS Mortar Sentry.png",			Keys:["2", "1", "4", "2", "4"]}
+			, {Category:"Defensive",Name:"A/MLS-4X Rocket Sentry",			Icon:"Rocket Sentry.png",				Keys:["2", "1", "4", "4", "3"]}
+			, {Category:"Defensive",Name:"A/G-16 Gatling Sentry",			Icon:"Gatling Sentry.png",				Keys:["2", "1", "4", "3"]}
+			, {Category:"Defensive",Name:"A/ARC-3 Tesla Tower",				Icon:"Tesla Tower.png",					Keys:["2", "1", "4", "1", "3", "4"]}
+			, {Category:"Defensive",Name:"A/M-12 Mortar Sentry",			Icon:"Mortar Sentry.png",				Keys:["2", "1", "4", "4", "2"]}
+			, {Category:"Defensive",Name:"MD-6 Anti-Personnel Minefield",	Icon:"Anti-Personnel Minefield.png",	Keys:["2", "3", "1", "4"]}
+			, {Category:"Defensive",Name:"A/MG-43 Machine Gun Sentry",		Icon:"Machine Gun Sentry.png",			Keys:["2", "1", "4", "4", "1"]}
+			, {Category:"Defensive",Name:"A/AC-8 Autocannon Sentry",		Icon:"Autocannon Sentry.png",			Keys:["2", "1", "4", "1", "3", "1"]}
+			, {Category:"Defensive",Name:"MD-I4 Incendiary Mines",			Icon:"Incendiary Mines.png",			Keys:["2", "3", "3", "2"]}
+			, {Category:"Defensive",Name:"E/MG-101 HMG Emplacement",		Icon:"HMG Emplacement.png",				Keys:["2", "1", "3", "4", "4", "3"]}]
 
-GUIConstructor().Show()
+GUIConstructor()
 
 GUIConstructor() {
-	StratagemNames := Array()
-	for (Stratagem in Stratagems)
-		StratagemNames.Push(Stratagem.Name)
-
-	ColumnWidth := "w180"
-
-	TraySetIcon("HD2.ico")
+	Try TraySetIcon("resources\HD2.png")
 	HotkeysGUI := Gui()
 	HotkeysGUI.Title := "HELLDIVERS™ 2 Stratagem Hotkeys"
 	HotkeysGUI.BackColor := "171717"
-	HotkeysGUI.SetFont("cFFFFFF")
+	HotkeysGUI.SetFont("cBABABA")
 
-	HotkeysGUI.Add("Picture", "w776 h-1", "HD2 Banner.png")
+	Try HotkeysGUI.Add("Picture", "w776 h-1", "resources\HD2 Banner.png")
 
 	Tab := HotkeysGUI.Add("Tab3", "Background383333 cE1CB00", [" Hotkeys ", " Settings ", " About "])
 	Tab.UseTab(1)
 
-	HotkeysGUI.Add("Text", "Section " ColumnWidth, "Numlock")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadDiv")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadMult")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadSub")
-	Global HotkeyNumlock := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumlock.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpadDiv := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpadDiv.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpadMult := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpadMult.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpadSub := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpadSub.OnEvent("Change", SaveHotkeys)
+	HotkeysGUI.Add("Text", "Section w180", "Numlock")
+	HotkeysGUI.Add("Text", "x+m w180", "NumpadDiv")
+	HotkeysGUI.Add("Text", "x+m w180", "NumpadMult")
+	HotkeysGUI.Add("Text", "x+m w180", "NumpadSub")
 
-	HotkeysGUI.Add("Text", "xs y+25 " ColumnWidth, "Numpad7 / NumpadHome")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad8 / NumpadUp")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad9 / NumpadPgUp")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadAdd")
-	Global HotkeyNumpad7 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad7.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpad8 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad8.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpad9 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad9.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpadAdd := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpadAdd.OnEvent("Change", SaveHotkeys)
+	Global HotkeyNumlock := HotkeysGUI.Add("Button", "xs h42 w180 left background383333")
+	HotkeyNumlock.OnEvent("Click", ShowStratagemMenu.Bind(1))
+	Global HotkeyNumpadDiv := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpadDiv.OnEvent("Click", ShowStratagemMenu.Bind(2))
+	Global HotkeyNumpadMult := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpadMult.OnEvent("Click", ShowStratagemMenu.Bind(3))
+	Global HotkeyNumpadSub := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpadSub.OnEvent("Click", ShowStratagemMenu.Bind(4))
 
-	HotkeysGUI.Add("Text", "xs y+25 " ColumnWidth, "Numpad4 / NumpadLeft")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad5 / NumpadClear")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad6 / NumpadRight")
-	Global HotkeyNumpad4 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad4.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpad5 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad5.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpad6 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad6.OnEvent("Change", SaveHotkeys)
+	HotkeysGUI.Add("Text", "xs y+25 w180", "Numpad7 / NumpadHome")
+	HotkeysGUI.Add("Text", "x+m w180", "Numpad8 / NumpadUp")
+	HotkeysGUI.Add("Text", "x+m w180", "Numpad9 / NumpadPgUp")
+	HotkeysGUI.Add("Text", "x+m w180", "NumpadAdd")
+	Global HotkeyNumpad7 := HotkeysGUI.Add("Button", "xs h42 w180 left background383333")
+	HotkeyNumpad7.OnEvent("Click", ShowStratagemMenu.Bind(5))
+	Global HotkeyNumpad8 := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpad8.OnEvent("Click", ShowStratagemMenu.Bind(6))
+	Global HotkeyNumpad9 := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpad9.OnEvent("Click", ShowStratagemMenu.Bind(7))
+	Global HotkeyNumpadAdd := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpadAdd.OnEvent("Click", ShowStratagemMenu.Bind(8))
 
-	HotkeysGUI.Add("Text", "xs y+25 " ColumnWidth, "Numpad1 / NumpadEnd")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad2 / NumpadDown")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "Numpad3 / NumpadPgDn")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadEnter")
-	Global HotkeyNumpad1 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad1.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpad2 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad2.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpad3 := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad3.OnEvent("Change", SaveHotkeys)
-	Global HotkeyNumpadEnter := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpadEnter.OnEvent("Change", SaveHotkeys)
+	HotkeysGUI.Add("Text", "xs y+25 w180", "Numpad4 / NumpadLeft")
+	HotkeysGUI.Add("Text", "x+m w180", "Numpad5 / NumpadClear")
+	HotkeysGUI.Add("Text", "x+m w180", "Numpad6 / NumpadRight")
+	Global HotkeyNumpad4 := HotkeysGUI.Add("Button", "xs h42 w180 left background383333")
+	HotkeyNumpad4.OnEvent("Click", ShowStratagemMenu.Bind(9))
+	Global HotkeyNumpad5 := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpad5.OnEvent("Click", ShowStratagemMenu.Bind(10))
+	Global HotkeyNumpad6 := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpad6.OnEvent("Click", ShowStratagemMenu.Bind(11))
 
-	HotkeysGUI.Add("Text", "xs y+25 " ColumnWidth, "Numpad0 / NumpadIns")
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth)
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth, "NumpadDot / NumpadDel")
-	Global HotkeyNumpad0 := HotkeysGUI.Add("DropDownList", "xs Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpad0.OnEvent("Change", SaveHotkeys)
-	HotkeysGUI.Add("Text", "x+m " ColumnWidth)
-	Global HotkeyNumpadDot := HotkeysGUI.Add("DropDownList", "x+m Background4B4B4B cBABABA " ColumnWidth, StratagemNames)
-	HotkeyNumpadDot.OnEvent("Change", SaveHotkeys)
+	HotkeysGUI.Add("Text", "xs y+25 w180", "Numpad1 / NumpadEnd")
+	HotkeysGUI.Add("Text", "x+m w180", "Numpad2 / NumpadDown")
+	HotkeysGUI.Add("Text", "x+m w180", "Numpad3 / NumpadPgDn")
+	HotkeysGUI.Add("Text", "x+m w180", "NumpadEnter")
+	Global HotkeyNumpad1 := HotkeysGUI.Add("Button", "xs h42 w180 left background383333")
+	HotkeyNumpad1.OnEvent("Click", ShowStratagemMenu.Bind(12))
+	Global HotkeyNumpad2 := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpad2.OnEvent("Click", ShowStratagemMenu.Bind(13))
+	Global HotkeyNumpad3 := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpad3.OnEvent("Click", ShowStratagemMenu.Bind(14))
+	Global HotkeyNumpadEnter := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpadEnter.OnEvent("Click", ShowStratagemMenu.Bind(15))
 
-	SaveHotkeys(*) {
-		IniWrite HotkeyNumlock.Value " " HotkeyNumpadDiv.Value " " HotkeyNumpadMult.Value " " HotkeyNumpadSub.Value " " HotkeyNumpad7.Value " " HotkeyNumpad8.Value " " HotkeyNumpad9.Value " " HotkeyNumpadAdd.Value " " HotkeyNumpad4.Value " " HotkeyNumpad5.Value " " HotkeyNumpad6.Value " " HotkeyNumpad1.Value " " HotkeyNumpad2.Value " " HotkeyNumpad3.Value " " HotkeyNumpadEnter.Value " " HotkeyNumpad0.Value " " HotkeyNumpadDot.Value, ConfigFile, "Profiles", Profile.Text
+	HotkeysGUI.Add("Text", "xs y+25 w180", "Numpad0 / NumpadIns")
+	HotkeysGUI.Add("Text", "x+m w180")
+	HotkeysGUI.Add("Text", "x+m w180", "NumpadDot / NumpadDel")
+	Global HotkeyNumpad0 := HotkeysGUI.Add("Button", "xs h42 w180 left background383333")
+	HotkeyNumpad0.OnEvent("Click", ShowStratagemMenu.Bind(16))
+	HotkeysGUI.Add("Text", "x+m w180")
+	Global HotkeyNumpadDot := HotkeysGUI.Add("Button", "x+m h42 w180 left background383333")
+	HotkeyNumpadDot.OnEvent("Click", ShowStratagemMenu.Bind(17))
+
+	ButtonIcon(ButtonHandle, Index) {
+		ButtonIL := Buffer(20 + A_PtrSize)
+		NewIL := DllCall("ImageList_Create", "Int", (36 * A_ScreenDPI / 96), "Int", (36 * A_ScreenDPI / 96), "UInt", 0x21, "Int", 1, "Int", 1)
+		NumPut("Ptr", NewIL, ButtonIL, 0)
+		NumPut("UInt", 0, ButtonIL, 0 + A_PtrSize)
+		NumPut("UInt", 0, ButtonIL, 4 + A_PtrSize)
+		NumPut("UInt", 0, ButtonIL, 8 + A_PtrSize)
+		NumPut("UInt", 0, ButtonIL, 12 + A_PtrSize)
+		NumPut("UInt", 0, ButtonIL, 16 + A_PtrSize)
+		SendMessage(BCM_SETIMAGELIST := 5634, 0, ButtonIL, ButtonHandle)
+		IL_Add(NewIL, "resources\" Stratagems[HotkeyStratagems[Index]].Icon, 1)
+		if (HotkeyButtonHandles[Index] > 0)
+			IL_Destroy(HotkeyButtonHandles[Index])
+		HotkeyButtonHandles[Index] := NewIL
+	}
+
+	ShowStratagemMenu(HotkeyID, ButtonID, *) {
+		Global MenuHotkeyID := HotkeyID
+		Global MenuButtonID := ButtonID
+		ControlGetPos &x, &y,, &h, ButtonID
+		Category := Stratagems[HotkeyStratagems[HotkeyID]].Category
+		Stratagem := Stratagems[HotkeyStratagems[HotkeyID]].Name
+		Switch Category {
+			Case "No Stratagem": StratagemMenu.Check(Stratagem)
+			Case "Common": CommonSubmenu.Check(Stratagem)
+			Case "Mission": MissionSubmenu.Check(Stratagem)
+			Case "Offensive": OffensiveSubmenu.Check(Stratagem)
+			Case "Supply": SupplySubmenu.Check(Stratagem)
+			Case "Defensive": DefensiveSubmenu.Check(Stratagem)
+		}
+		StratagemMenu.Show(x, y + h)
+		Switch Category {
+			Case "No Stratagem": StratagemMenu.Uncheck(Stratagem)
+			Case "Common": CommonSubmenu.Uncheck(Stratagem)
+			Case "Mission": MissionSubmenu.Uncheck(Stratagem)
+			Case "Offensive": OffensiveSubmenu.Uncheck(Stratagem)
+			Case "Supply": SupplySubmenu.Uncheck(Stratagem)
+			Case "Defensive": DefensiveSubmenu.Uncheck(Stratagem)
+		}
+	}
+
+	StratagemMenuHandler(Index, *) {
+		HotkeyStratagems[MenuHotkeyID] := Index
+		MenuButtonID.Text := " " Stratagems[Index].Name
+		ButtonIcon(MenuButtonID.Hwnd, MenuHotkeyID)
+		SaveHotkeys
+	}
+
+	SaveHotkeys() {
+		Settings := ""
+		for setting in HotkeyStratagems
+			Settings := Settings " " setting
+		IniWrite LTrim(Settings), ConfigFile, "Profiles", Profile.Text
 	}
 
 	Tab.UseTab(2)
@@ -225,7 +273,7 @@ GUIConstructor() {
 
 	Temp := HotkeysGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI")
 	Temp.SetFont("bold s10")
-	HotkeysGUI.Add("Text", "xs", "Version 1.1.1")
+	HotkeysGUI.Add("Text", "xs", "Version 1.2")
 	HotkeysGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
@@ -242,7 +290,7 @@ GUIConstructor() {
 	}
 
 	HotkeysGUI.Add("Text", "Section", "Profile")
-	Profile := HotkeysGUI.Add("DropDownList", "ys w150 Background4B4B4B cBABABA", ProfileNames)
+	Profile := HotkeysGUI.Add("DropDownList", "ys w180 Background4B4B4B cBABABA", ProfileNames)
 	Profile.OnEvent("Change", ChangeProfile)
 	Profile.Focus
 	Temp := IniRead(ConfigFile, "Settings", "ActiveProfile", "Default")
@@ -262,24 +310,41 @@ GUIConstructor() {
 			DeleteProfile.Enabled := False
 		else
 			DeleteProfile.Enabled := True
-		Settings := StrSplit(IniRead(ConfigFile, "Profiles", Profile.Text, "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"), " ")
-		HotkeyNumlock.Value := Settings[1]
-		HotkeyNumpadDiv.Value := Settings[2]
-		HotkeyNumpadMult.Value := Settings[3]
-		HotkeyNumpadSub.Value := Settings[4]
-		HotkeyNumpad7.Value := Settings[5]
-		HotkeyNumpad8.Value := Settings[6]
-		HotkeyNumpad9.Value := Settings[7]
-		HotkeyNumpadAdd.Value := Settings[8]
-		HotkeyNumpad4.Value := Settings[9]
-		HotkeyNumpad5.Value := Settings[10]
-		HotkeyNumpad6.Value := Settings[11]
-		HotkeyNumpad1.Value := Settings[12]
-		HotkeyNumpad2.Value := Settings[13]
-		HotkeyNumpad3.Value := Settings[14]
-		HotkeyNumpadEnter.Value := Settings[15]
-		HotkeyNumpad0.Value := Settings[16]
-		HotkeyNumpadDot.Value := Settings[17]
+		Global HotkeyStratagems := StrSplit(IniRead(ConfigFile, "Profiles", Profile.Text, "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"), " ")
+		HotkeyNumlock.Text := " " Stratagems[HotkeyStratagems[1]].Name
+		ButtonIcon(HotkeyNumlock.Hwnd, 1)
+		HotkeyNumpadDiv.Text := " " Stratagems[HotkeyStratagems[2]].Name
+		ButtonIcon(HotkeyNumpadDiv.Hwnd, 2)
+		HotkeyNumpadMult.Text := " " Stratagems[HotkeyStratagems[3]].Name
+		ButtonIcon(HotkeyNumpadMult.Hwnd, 3)
+		HotkeyNumpadSub.Text := " " Stratagems[HotkeyStratagems[4]].Name
+		ButtonIcon(HotkeyNumpadSub.Hwnd, 4)
+		HotkeyNumpad7.Text := " " Stratagems[HotkeyStratagems[5]].Name
+		ButtonIcon(HotkeyNumpad7.Hwnd, 5)
+		HotkeyNumpad8.Text := " " Stratagems[HotkeyStratagems[6]].Name
+		ButtonIcon(HotkeyNumpad8.Hwnd, 6)
+		HotkeyNumpad9.Text := " " Stratagems[HotkeyStratagems[7]].Name
+		ButtonIcon(HotkeyNumpad9.Hwnd, 7)
+		HotkeyNumpadAdd.Text := " " Stratagems[HotkeyStratagems[8]].Name
+		ButtonIcon(HotkeyNumpadAdd.Hwnd, 8)
+		HotkeyNumpad4.Text := " " Stratagems[HotkeyStratagems[9]].Name
+		ButtonIcon(HotkeyNumpad4.Hwnd, 9)
+		HotkeyNumpad5.Text := " " Stratagems[HotkeyStratagems[10]].Name
+		ButtonIcon(HotkeyNumpad5.Hwnd, 10)
+		HotkeyNumpad6.Text := " " Stratagems[HotkeyStratagems[11]].Name
+		ButtonIcon(HotkeyNumpad6.Hwnd, 11)
+		HotkeyNumpad1.Text := " " Stratagems[HotkeyStratagems[12]].Name
+		ButtonIcon(HotkeyNumpad1.Hwnd, 12)
+		HotkeyNumpad2.Text := " " Stratagems[HotkeyStratagems[13]].Name
+		ButtonIcon(HotkeyNumpad2.Hwnd, 13)
+		HotkeyNumpad3.Text := " " Stratagems[HotkeyStratagems[14]].Name
+		ButtonIcon(HotkeyNumpad3.Hwnd, 14)
+		HotkeyNumpadEnter.Text := " " Stratagems[HotkeyStratagems[15]].Name
+		ButtonIcon(HotkeyNumpadEnter.Hwnd, 15)
+		HotkeyNumpad0.Text := " " Stratagems[HotkeyStratagems[16]].Name
+		ButtonIcon(HotkeyNumpad0.Hwnd, 16)
+		HotkeyNumpadDot.Text := " " Stratagems[HotkeyStratagems[17]].Name
+		ButtonIcon(HotkeyNumpadDot.Hwnd, 17)
 		IniWrite Profile.Text, ConfigFile, "Settings", "ActiveProfile"
 	}
 
@@ -331,92 +396,134 @@ GUIConstructor() {
 		if (MsgBox("Do you really want to delete `"" Profile.Text "`" profile?", "HELLDIVERS™ 2 Stratagem Hotkeys", "YN Icon? 8192") = "No")
 			Return
 		IniDelete ConfigFile, "Profiles", Profile.Text
+		for (p in ProfileNames) {
+			if (p = Profile.Text)
+				ProfileNames.RemoveAt(A_Index)
+		}
 		Profile.Delete(Profile.Value)
 		Profile.Text := "Default"
 		ChangeProfile
 	}
 
 	HotkeysGUI.OnEvent("Close", (*) => ExitApp())
-	return HotkeysGUI
+	HotkeysGUI.Show()
+
+	Global StratagemMenu := Menu()
+	CommonSubmenu := Menu()
+	MissionSubmenu := Menu()
+	OffensiveSubmenu := Menu()
+	SupplySubmenu := Menu()
+	DefensiveSubmenu := Menu()
+	For (Stratagem in Stratagems) {
+		Switch Stratagem.Category {
+			Case "Common":
+				CommonSubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
+				Try CommonSubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
+			Case "Mission":
+				MissionSubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
+				Try MissionSubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
+			Case "Offensive":
+				OffensiveSubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
+				Try OffensiveSubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
+			Case "Supply":
+				SupplySubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
+				Try SupplySubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
+			Case "Defensive":
+				DefensiveSubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
+				Try DefensiveSubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
+		}
+	}
+	StratagemMenu.Add("No Stratagem", StratagemMenuHandler.Bind(1))
+	Try StratagemMenu.SetIcon("No Stratagem", "resources\No Stratagem.png",,28)
+	StratagemMenu.Add("Common", CommonSubmenu)
+	Try StratagemMenu.SetIcon("Common", "resources\Reinforce.png",,28)
+	StratagemMenu.Add("Mission", MissionSubmenu)
+	Try StratagemMenu.SetIcon("Mission", "resources\SSSD Delivery.png",,28)
+	StratagemMenu.Add("Offensive", OffensiveSubmenu)
+	Try StratagemMenu.SetIcon("Offensive", "resources\Eagle 500kg Bomb.png",,28)
+	StratagemMenu.Add("Supply", SupplySubmenu)
+	Try StratagemMenu.SetIcon("Supply", "resources\Commando.png",,28)
+	StratagemMenu.Add("Defensive", DefensiveSubmenu)
+	Try StratagemMenu.SetIcon("Defensive", "resources\Anti-Tank Mines.png",,28)
+	StratagemMenu.SetColor("BABABA", true)
 }
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumlock.Value > 1)
-NumLock::PlayKeys(Stratagems[HotkeyNumlock.Value].Keys)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[1] > 1)
+NumLock::PlayKeys(Stratagems[HotkeyStratagems[1]].Keys)
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpadDiv.Value > 1)
-NumpadDiv::PlayKeys(Stratagems[HotkeyNumpadDiv.Value].Keys)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[2] > 1)
+NumpadDiv::PlayKeys(Stratagems[HotkeyStratagems[2]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpadMult.Value > 1)
-NumpadMult::PlayKeys(Stratagems[HotkeyNumpadMult.Value].Keys)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[3] > 1)
+NumpadMult::PlayKeys(Stratagems[HotkeyStratagems[3]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpadSub.Value > 1)
-NumpadSub::PlayKeys(Stratagems[HotkeyNumpadSub.Value].Keys)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[4] > 1)
+NumpadSub::PlayKeys(Stratagems[HotkeyStratagems[4]].Keys)
 #HotIf
 
-
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad7.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[5] > 1)
 Numpad7::
-NumpadHome::PlayKeys(Stratagems[HotkeyNumpad7.Value].Keys)
+NumpadHome::PlayKeys(Stratagems[HotkeyStratagems[5]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad8.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[6] > 1)
 Numpad8::
-NumpadUp::PlayKeys(Stratagems[HotkeyNumpad8.Value].Keys)
+NumpadUp::PlayKeys(Stratagems[HotkeyStratagems[6]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad9.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[7] > 1)
 Numpad9::
-NumpadPgUp::PlayKeys(Stratagems[HotkeyNumpad9.Value].Keys)
+NumpadPgUp::PlayKeys(Stratagems[HotkeyStratagems[7]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpadAdd.Value > 1)
-NumpadAdd::PlayKeys(Stratagems[HotkeyNumpadAdd.Value].Keys)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[8] > 1)
+NumpadAdd::PlayKeys(Stratagems[HotkeyStratagems[8]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad4.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[9] > 1)
 Numpad4::
-NumpadLeft::PlayKeys(Stratagems[HotkeyNumpad4.Value].Keys)
+NumpadLeft::PlayKeys(Stratagems[HotkeyStratagems[9]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad5.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[10] > 1)
 Numpad5::
-NumpadClear::PlayKeys(Stratagems[HotkeyNumpad5.Value].Keys)
+NumpadClear::PlayKeys(Stratagems[HotkeyStratagems[10]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad6.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[11] > 1)
 Numpad6::
-NumpadRight::PlayKeys(Stratagems[HotkeyNumpad6.Value].Keys)
+NumpadRight::PlayKeys(Stratagems[HotkeyStratagems[11]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad1.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[12] > 1)
 Numpad1::
-NumpadEnd::PlayKeys(Stratagems[HotkeyNumpad1.Value].Keys)
+NumpadEnd::PlayKeys(Stratagems[HotkeyStratagems[12]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad2.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[13] > 1)
 Numpad2::
-NumpadDown::PlayKeys(Stratagems[HotkeyNumpad2.Value].Keys)
+NumpadDown::PlayKeys(Stratagems[HotkeyStratagems[13]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad3.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[14] > 1)
 Numpad3::
-NumpadPgDn::PlayKeys(Stratagems[HotkeyNumpad3.Value].Keys)
+NumpadPgDn::PlayKeys(Stratagems[HotkeyStratagems[14]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpadEnter.Value > 1)
-NumpadEnter::PlayKeys(Stratagems[HotkeyNumpadEnter.Value].Keys)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[15] > 1)
+NumpadEnter::PlayKeys(Stratagems[HotkeyStratagems[15]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpad0.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[16] > 1)
 Numpad0::
-NumpadIns::PlayKeys(Stratagems[HotkeyNumpad0.Value].Keys)
+NumpadIns::PlayKeys(Stratagems[HotkeyStratagems[16]].Keys)
 #HotIf
 
-#HotIf (WinActive(GameTitle)) && (HotkeyNumpadDot.Value > 1)
+#HotIf (WinActive(GameTitle)) && (HotkeyStratagems[17] > 1)
 NumpadDot::
-NumpadDel::PlayKeys(Stratagems[HotkeyNumpadDot.Value].Keys)
+NumpadDel::PlayKeys(Stratagems[HotkeyStratagems[17]].Keys)
 #HotIf
 
 PlayKeys(Keys) {
