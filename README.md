@@ -1,6 +1,6 @@
 # Helldivers 2 Stratagem AutoHotkey v2 script with GUI
 
-![HD2 Hotkeys](https://github.com/user-attachments/assets/be9aed15-6b00-4202-a129-a20a7f80b870)
+![HD2 Hotkeys](https://github.com/user-attachments/assets/e30db23c-b56e-4e42-87e7-ebe7d5098104)
 
 ## How to use
 
