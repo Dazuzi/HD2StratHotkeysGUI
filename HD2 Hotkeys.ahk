@@ -1,84 +1,88 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2.0
+Version 2.1
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
+
+;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
+;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
+;@Ahk2Exe-SetFileVersion 2.1.0.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
 #NoTrayIcon
 
-StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Stratagem.png"}				;1 = Up, 2 = Down, 3 = Left & 4 = Right
-,{Category:"Common",	Name:"Reinforce",						Icon:"Reinforce.png",					Keys:[1, 2, 4, 3, 1]}
-,{Category:"Common",	Name:"SoS Beacon",						Icon:"SoS Beacon.png",					Keys:[1, 2, 4, 1]}
-,{Category:"Common",	Name:"Resupply",						Icon:"Resupply.png",					Keys:[2, 2, 1, 4]}
-,{Category:"Common",	Name:"Eagle Rearm",						Icon:"Eagle Rearm.png",					Keys:[1, 1, 3, 1, 4]}
-,{Category:"Mission",	Name:"SSSD Delivery",					Icon:"SSSD Delivery.png",				Keys:[2, 2, 2, 1, 1]}
-,{Category:"Mission",	Name:"Prospecting Drill",				Icon:"Prospecting Drill.png",			Keys:[2, 2, 3, 4, 2, 2]}
-,{Category:"Mission",	Name:"Super Earth Flag",				Icon:"Super Earth Flag.png",			Keys:[2, 1, 2, 1]}
-,{Category:"Mission",	Name:"NUX-223 Hellbomb",				Icon:"Hellbomb.png",					Keys:[2, 1, 3, 2, 1, 4, 2, 1]}
-,{Category:"Mission",	Name:"Upload Data",						Icon:"Upload Data.png",					Keys:[3, 4, 1, 1, 1]}
-,{Category:"Mission",	Name:"Seismic Probe",					Icon:"Seismic Probe.png",				Keys:[1, 1, 3, 4, 2, 2]}
-,{Category:"Mission",	Name:"Orbital Illumination Flare",		Icon:"Orbital Illumination Flare.png",	Keys:[4, 4, 3, 3]}
-,{Category:"Mission",	Name:"SEAF Artillery",					Icon:"SEAF Artillery.png",				Keys:[4, 1, 1, 2]}
-,{Category:"Mission",	Name:"Dark Fluid Vessel",				Icon:"Dark Fluid Vessel.png",			Keys:[1, 3, 4, 2, 1, 1]}
-,{Category:"Mission",	Name:"Tectonic Drill",					Icon:"Tectonic Drill.png",				Keys:[1, 2, 1, 2, 1, 2]}
-,{Category:"Mission",	Name:"Hive Breaker Drill",				Icon:"Hive Breaker Drill.png",			Keys:[3, 1, 2, 4, 2, 2]}
-,{Category:"Offensive",	Name:"Eagle 500kg Bomb",				Icon:"Eagle 500kg Bomb.png",			Keys:[1, 4, 2, 2, 2]}
-,{Category:"Offensive",	Name:"Orbital Gatling Barrage",			Icon:"Orbital Gatling Barrage.png",		Keys:[4, 2, 3, 1, 1]}
-,{Category:"Offensive",	Name:"Eagle Airstrike",					Icon:"Eagle Airstrike.png",				Keys:[1, 4, 2, 4]}
-,{Category:"Offensive",	Name:"Orbital Walking Barrage",			Icon:"Orbital Walking Barrage.png",		Keys:[4, 2, 4, 2, 4, 2]}
-,{Category:"Offensive",	Name:"Eagle Strafing Run",				Icon:"Eagle Strafing Run.png",			Keys:[1, 4, 4]}
-,{Category:"Offensive",	Name:"Orbital EMS Strike",				Icon:"Orbital EMS Strike.png",			Keys:[4, 4, 3, 2]}
-,{Category:"Offensive",	Name:"Eagle Smoke Strike",				Icon:"Eagle Smoke Strike.png",			Keys:[1, 4, 1, 2]}
-,{Category:"Offensive",	Name:"Orbital Gas Strike",				Icon:"Orbital Gas Strike.png",			Keys:[4, 4, 2, 4]}
-,{Category:"Offensive",	Name:"Orbital Railcannon Strike",		Icon:"Orbital Railcannon Strike.png",	Keys:[4, 1, 2, 2, 4]}
-,{Category:"Offensive",	Name:"Eagle Cluster Bomb",				Icon:"Eagle Cluster Bomb.png",			Keys:[1, 4, 2, 2, 4]}
-,{Category:"Offensive",	Name:"Orbital Smoke Strike",			Icon:"Orbital Smoke Strike.png",		Keys:[4, 4, 2, 1]}
-,{Category:"Offensive",	Name:"Orbital Airburst Strike",			Icon:"Orbital Airburst Strike.png",		Keys:[4, 4, 4]}
-,{Category:"Offensive",	Name:"Orbital Laser",					Icon:"Orbital Laser.png",				Keys:[4, 2, 1, 4, 2]}
-,{Category:"Offensive",	Name:"Orbital Precision Strike",		Icon:"Orbital Precision Strike.png",	Keys:[4, 4, 1]}
-,{Category:"Offensive",	Name:"Orbital 380mm HE Barrage",		Icon:"Orbital 380MM HE Barrage.png",	Keys:[4, 2, 1, 1, 3, 2, 2]}
-,{Category:"Offensive",	Name:"Eagle Napalm Airstrike",			Icon:"Eagle Napalm Airstrike.png",		Keys:[1, 4, 2, 1]}
-,{Category:"Offensive",	Name:"Orbital 120mm HE Barrage",		Icon:"Orbital 120MM HE Barrage.png",	Keys:[4, 4, 2, 3, 4, 2]}
-,{Category:"Offensive",	Name:"Eagle 110mm Rocket Pods",			Icon:"Eagle 110MM Rocket Pods.png",		Keys:[1, 4, 1, 3]}
-,{Category:"Supply",	Name:"MLS-4X Commando",					Icon:"Commando.png",					Keys:[2, 3, 1, 2, 4]}
-,{Category:"Supply",	Name:"EXO-49 Emancipator Exosuit",		Icon:"Emancipator Exosuit.png",			Keys:[3, 2, 4, 1, 3, 2, 1]}
-,{Category:"Supply",	Name:"M-105 Stalwart",					Icon:"Stalwart.png",					Keys:[2, 3, 2, 1, 1, 3]}
-,{Category:"Supply",	Name:"AC-8 Autocannon",					Icon:"Autocannon.png",					Keys:[2, 3, 2, 1, 1, 4]}
-,{Category:"Supply",	Name:"EXO-45 Patriot Exosuit",			Icon:"Patriot Exosuit.png",				Keys:[3, 2, 4, 1, 3, 2, 2]}
-,{Category:"Supply",	Name:"MG-206 Heavy Machine Gun",		Icon:"Heavy Machine Gun.png",			Keys:[2, 3, 1, 2, 2]}
-,{Category:"Supply",	Name:"SH-32 Shield Generator Pack",		Icon:"Shield Generator Pack.png",		Keys:[2, 1, 3, 4, 3, 4]}
-,{Category:"Supply",	Name:"RL-77 Airburst Rocket Launcher",	Icon:"Airburst Rocket Launcher.png",	Keys:[2, 1, 1, 3, 4]}
-,{Category:"Supply",	Name:"RS-422 Railgun",					Icon:"Railgun.png",						Keys:[2, 4, 2, 1, 3, 4]}
-,{Category:"Supply",	Name:"LAS-98 Laser Cannon",				Icon:"Laser Cannon.png",				Keys:[2, 3, 2, 1, 3]}
-,{Category:"Supply",	Name:"ARC-3 Arc Thrower",				Icon:"Arc Thrower.png",					Keys:[2, 4, 2, 1, 3, 3]}
-,{Category:"Supply",	Name:"AX/AR-23 `"Guard Dog`"",			Icon:"Guard Dog.png",					Keys:[2, 1, 3, 1, 4, 2]}
-,{Category:"Supply",	Name:"FAF-14 Spear",					Icon:"Spear.png",						Keys:[2, 2, 1, 2, 2]}
-,{Category:"Supply",	Name:"GL-21 Grenade Launcher",			Icon:"Grenade Launcher.png",			Keys:[2, 3, 1, 3, 2]}
-,{Category:"Supply",	Name:"MG-43 Machine Gun",				Icon:"Machine Gun.png",					Keys:[2, 3, 2, 1, 4]}
-,{Category:"Supply",	Name:"SH-20 Ballistic Shield Backpack",	Icon:"Ballistic Shield Backpack.png",	Keys:[2, 3, 2, 2, 1, 3]}
-,{Category:"Supply",	Name:"B-1 Supply Pack",					Icon:"Supply Pack.png",					Keys:[2, 3, 2, 1, 1, 2]}
-,{Category:"Supply",	Name:"FLAM-40 Flamethrower",			Icon:"Flamethrower.png",				Keys:[2, 3, 1, 2, 1]}
-,{Category:"Supply",	Name:"AX/LAS-5 `"Guard Dog`" Rover",	Icon:"Guard Dog Rover.png",				Keys:[2, 1, 3, 1, 4, 4]}
-,{Category:"Supply",	Name:"GR-8 Recoilless Rifle",			Icon:"Recoilless Rifle.png",			Keys:[2, 3, 4, 4, 3]}
-,{Category:"Supply",	Name:"LIFT-850 Jump Pack",				Icon:"Jump Pack.png",					Keys:[2, 1, 1, 2, 1]}
-,{Category:"Supply",	Name:"APW-1 Anti-Materiel Rifle",		Icon:"Anti-Material Rifle.png",			Keys:[2, 3, 4, 1, 2]}
-,{Category:"Supply",	Name:"EAT-17 Expendable Anti-Tank",		Icon:"Expendable Anti-Tank.png",		Keys:[2, 2, 3, 1, 4]}
-,{Category:"Supply",	Name:"LAS-99 Quasar Cannon",			Icon:"Quasar Cannon.png",				Keys:[2, 2, 1, 3, 4]}
-,{Category:"Defensive",	Name:"Anti-Tank Mines",					Icon:"Anti-Tank Mines.png",				Keys:[2, 3, 1, 1]}
-,{Category:"Defensive",	Name:"FX-12 Shield Generator Relay",	Icon:"Shield Generator Relay.png",		Keys:[2, 2, 3, 4, 3, 4]}
-,{Category:"Defensive",	Name:"A/M-23 EMS Mortar Sentry",		Icon:"EMS Mortar Sentry.png",			Keys:[2, 1, 4, 2, 4]}
-,{Category:"Defensive",	Name:"A/MLS-4X Rocket Sentry",			Icon:"Rocket Sentry.png",				Keys:[2, 1, 4, 4, 3]}
-,{Category:"Defensive",	Name:"A/G-16 Gatling Sentry",			Icon:"Gatling Sentry.png",				Keys:[2, 1, 4, 3]}
-,{Category:"Defensive",	Name:"A/ARC-3 Tesla Tower",				Icon:"Tesla Tower.png",					Keys:[2, 1, 4, 1, 3, 4]}
-,{Category:"Defensive",	Name:"A/M-12 Mortar Sentry",			Icon:"Mortar Sentry.png",				Keys:[2, 1, 4, 4, 2]}
-,{Category:"Defensive",	Name:"MD-6 Anti-Personnel Minefield",	Icon:"Anti-Personnel Minefield.png",	Keys:[2, 3, 1, 4]}
-,{Category:"Defensive",	Name:"A/MG-43 Machine Gun Sentry",		Icon:"Machine Gun Sentry.png",			Keys:[2, 1, 4, 4, 1]}
-,{Category:"Defensive",	Name:"A/AC-8 Autocannon Sentry",		Icon:"Autocannon Sentry.png",			Keys:[2, 1, 4, 1, 3, 1]}
-,{Category:"Defensive",	Name:"MD-I4 Incendiary Mines",			Icon:"Incendiary Mines.png",			Keys:[2, 3, 3, 2]}
-,{Category:"Defensive",	Name:"E/MG-101 HMG Emplacement",		Icon:"HMG Emplacement.png",				Keys:[2, 1, 3, 4, 4, 3]}]
+StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Stratagem.png", Throwable:False, Keys:[]}												;1 = Up, 2 = Down, 3 = Left & 4 = Right
+,{Category:"Common",	Name:"Reinforce",						TTSName:"Reinforce",					Icon:"Reinforce.png",					Throwable:True,		Keys:[1, 2, 4, 3, 1]}
+,{Category:"Common",	Name:"SoS Beacon",						TTSName:"S O S Beacon",					Icon:"SoS Beacon.png",					Throwable:True,		Keys:[1, 2, 4, 1]}
+,{Category:"Common",	Name:"Resupply",						TTSName:"Resupply",						Icon:"Resupply.png",					Throwable:True,		Keys:[2, 2, 1, 4]}
+,{Category:"Common",	Name:"Eagle Rearm",						TTSName:"Eagle Rearm",					Icon:"Eagle Rearm.png",					Throwable:False,	Keys:[1, 1, 3, 1, 4]}
+,{Category:"Mission",	Name:"SSSD Delivery",					TTSName:"S S S D Delivery",				Icon:"SSSD Delivery.png",				Throwable:True,		Keys:[2, 2, 2, 1, 1]}
+,{Category:"Mission",	Name:"Prospecting Drill",				TTSName:"Prospecting Drill",			Icon:"Prospecting Drill.png",			Throwable:False,		Keys:[2, 2, 3, 4, 2, 2]}
+,{Category:"Mission",	Name:"Super Earth Flag",				TTSName:"Super Earth Flag",				Icon:"Super Earth Flag.png",			Throwable:False,		Keys:[2, 1, 2, 1]}
+,{Category:"Mission",	Name:"NUX-223 Hellbomb",				TTSName:"Hellbomb",						Icon:"Hellbomb.png",					Throwable:True,		Keys:[2, 1, 3, 2, 1, 4, 2, 1]}
+,{Category:"Mission",	Name:"Upload Data",						TTSName:"Upload Data",					Icon:"Upload Data.png",					Throwable:False,	Keys:[3, 4, 1, 1, 1]}
+,{Category:"Mission",	Name:"Seismic Probe",					TTSName:"Seismic Probe",				Icon:"Seismic Probe.png",				Throwable:False,		Keys:[1, 1, 3, 4, 2, 2]}
+,{Category:"Mission",	Name:"Orbital Illumination Flare",		TTSName:"Orbital Illumination Flare",	Icon:"Orbital Illumination Flare.png",	Throwable:True,		Keys:[4, 4, 3, 3]}
+,{Category:"Mission",	Name:"SEAF Artillery",					TTSName:"S E A F Artillery",			Icon:"SEAF Artillery.png",				Throwable:True,		Keys:[4, 1, 1, 2]}
+,{Category:"Mission",	Name:"Dark Fluid Vessel",				TTSName:"Dark Fluid Vessel",			Icon:"Dark Fluid Vessel.png",			Throwable:True,		Keys:[1, 3, 4, 2, 1, 1]}
+,{Category:"Mission",	Name:"Tectonic Drill",					TTSName:"Tectonic Drill",				Icon:"Tectonic Drill.png",				Throwable:False,	Keys:[1, 2, 1, 2, 1, 2]}
+,{Category:"Mission",	Name:"Hive Breaker Drill",				TTSName:"Hive Breaker Drill",			Icon:"Hive Breaker Drill.png",			Throwable:False,	Keys:[3, 1, 2, 4, 2, 2]}
+,{Category:"Offensive",	Name:"Eagle 500kg Bomb",				TTSName:"Eagle 500K G Bomb",			Icon:"Eagle 500kg Bomb.png",			Throwable:True,		Keys:[1, 4, 2, 2, 2]}
+,{Category:"Offensive",	Name:"Orbital Gatling Barrage",			TTSName:"Orbital Gatling Barrage",		Icon:"Orbital Gatling Barrage.png",		Throwable:True,		Keys:[4, 2, 3, 1, 1]}
+,{Category:"Offensive",	Name:"Eagle Airstrike",					TTSName:"Eagle Airstrike",				Icon:"Eagle Airstrike.png",				Throwable:True,		Keys:[1, 4, 2, 4]}
+,{Category:"Offensive",	Name:"Orbital Walking Barrage",			TTSName:"Orbital Walking Barrage",		Icon:"Orbital Walking Barrage.png",		Throwable:True,		Keys:[4, 2, 4, 2, 4, 2]}
+,{Category:"Offensive",	Name:"Eagle Strafing Run",				TTSName:"Eagle Strafing Run",			Icon:"Eagle Strafing Run.png",			Throwable:True,		Keys:[1, 4, 4]}
+,{Category:"Offensive",	Name:"Orbital EMS Strike",				TTSName:"Orbital E M S Strike",			Icon:"Orbital EMS Strike.png",			Throwable:True,		Keys:[4, 4, 3, 2]}
+,{Category:"Offensive",	Name:"Eagle Smoke Strike",				TTSName:"Eagle Smoke Strike",			Icon:"Eagle Smoke Strike.png",			Throwable:True,		Keys:[1, 4, 1, 2]}
+,{Category:"Offensive",	Name:"Orbital Gas Strike",				TTSName:"Orbital Gas Strike",			Icon:"Orbital Gas Strike.png",			Throwable:True,		Keys:[4, 4, 2, 4]}
+,{Category:"Offensive",	Name:"Orbital Railcannon Strike",		TTSName:"Orbital Railcannon Strike",	Icon:"Orbital Railcannon Strike.png",	Throwable:True,		Keys:[4, 1, 2, 2, 4]}
+,{Category:"Offensive",	Name:"Eagle Cluster Bomb",				TTSName:"Eagle Cluster Bomb",			Icon:"Eagle Cluster Bomb.png",			Throwable:True,		Keys:[1, 4, 2, 2, 4]}
+,{Category:"Offensive",	Name:"Orbital Smoke Strike",			TTSName:"Orbital Smoke Strike",			Icon:"Orbital Smoke Strike.png",		Throwable:True,		Keys:[4, 4, 2, 1]}
+,{Category:"Offensive",	Name:"Orbital Airburst Strike",			TTSName:"Orbital Airbust Strike",		Icon:"Orbital Airburst Strike.png",		Throwable:True,		Keys:[4, 4, 4]}
+,{Category:"Offensive",	Name:"Orbital Laser",					TTSName:"Orbital Laser",				Icon:"Orbital Laser.png",				Throwable:True,		Keys:[4, 2, 1, 4, 2]}
+,{Category:"Offensive",	Name:"Orbital Precision Strike",		TTSName:"Orbital Precision Strike",		Icon:"Orbital Precision Strike.png",	Throwable:True,		Keys:[4, 4, 1]}
+,{Category:"Offensive",	Name:"Orbital 380mm HE Barrage",		TTSName:"Orbital 380M M H E Barrage",	Icon:"Orbital 380MM HE Barrage.png",	Throwable:True,		Keys:[4, 2, 1, 1, 3, 2, 2]}
+,{Category:"Offensive",	Name:"Eagle Napalm Airstrike",			TTSName:"Eagle Napalm Airstrike",		Icon:"Eagle Napalm Airstrike.png",		Throwable:True,		Keys:[1, 4, 2, 1]}
+,{Category:"Offensive",	Name:"Orbital 120mm HE Barrage",		TTSName:"Orbital 120M M H E Barrage",	Icon:"Orbital 120MM HE Barrage.png",	Throwable:True,		Keys:[4, 4, 2, 3, 4, 2]}
+,{Category:"Offensive",	Name:"Eagle 110mm Rocket Pods",			TTSName:"Eagle 110M M Rocket Pods",		Icon:"Eagle 110MM Rocket Pods.png",		Throwable:True,		Keys:[1, 4, 1, 3]}
+,{Category:"Supply",	Name:"MLS-4X Commando",					TTSName:"Commando",						Icon:"Commando.png",					Throwable:True,		Keys:[2, 3, 1, 2, 4]}
+,{Category:"Supply",	Name:"EXO-49 Emancipator Exosuit",		TTSName:"Emancipator Exosuit",			Icon:"Emancipator Exosuit.png",			Throwable:True,		Keys:[3, 2, 4, 1, 3, 2, 1]}
+,{Category:"Supply",	Name:"M-105 Stalwart",					TTSName:"Stalwart",						Icon:"Stalwart.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 3]}
+,{Category:"Supply",	Name:"AC-8 Autocannon",					TTSName:"Autocannon",					Icon:"Autocannon.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 4]}
+,{Category:"Supply",	Name:"EXO-45 Patriot Exosuit",			TTSName:"Patriot Exosuit",				Icon:"Patriot Exosuit.png",				Throwable:True,		Keys:[3, 2, 4, 1, 3, 2, 2]}
+,{Category:"Supply",	Name:"MG-206 Heavy Machine Gun",		TTSName:"Heavy Machine Gun",			Icon:"Heavy Machine Gun.png",			Throwable:True,		Keys:[2, 3, 1, 2, 2]}
+,{Category:"Supply",	Name:"SH-32 Shield Generator Pack",		TTSName:"Shield Generator Pack",		Icon:"Shield Generator Pack.png",		Throwable:True,		Keys:[2, 1, 3, 4, 3, 4]}
+,{Category:"Supply",	Name:"RL-77 Airburst Rocket Launcher",	TTSName:"Airburst Rocket Launcher",		Icon:"Airburst Rocket Launcher.png",	Throwable:True,		Keys:[2, 1, 1, 3, 4]}
+,{Category:"Supply",	Name:"RS-422 Railgun",					TTSName:"Railgun",						Icon:"Railgun.png",						Throwable:True,		Keys:[2, 4, 2, 1, 3, 4]}
+,{Category:"Supply",	Name:"LAS-98 Laser Cannon",				TTSName:"Laser Cannon",					Icon:"Laser Cannon.png",				Throwable:True,		Keys:[2, 3, 2, 1, 3]}
+,{Category:"Supply",	Name:"ARC-3 Arc Thrower",				TTSName:"Arc Thrower",					Icon:"Arc Thrower.png",					Throwable:True,		Keys:[2, 4, 2, 1, 3, 3]}
+,{Category:"Supply",	Name:"AX/AR-23 `"Guard Dog`"",			TTSName:"Guard Dog",					Icon:"Guard Dog.png",					Throwable:True,		Keys:[2, 1, 3, 1, 4, 2]}
+,{Category:"Supply",	Name:"FAF-14 Spear",					TTSName:"Spear",						Icon:"Spear.png",						Throwable:True,		Keys:[2, 2, 1, 2, 2]}
+,{Category:"Supply",	Name:"GL-21 Grenade Launcher",			TTSName:"Grenade Launcher",				Icon:"Grenade Launcher.png",			Throwable:True,		Keys:[2, 3, 1, 3, 2]}
+,{Category:"Supply",	Name:"MG-43 Machine Gun",				TTSName:"Machine Gun",					Icon:"Machine Gun.png",					Throwable:True,		Keys:[2, 3, 2, 1, 4]}
+,{Category:"Supply",	Name:"SH-20 Ballistic Shield Backpack",	TTSName:"Ballistic Shield Backpack",	Icon:"Ballistic Shield Backpack.png",	Throwable:True,		Keys:[2, 3, 2, 2, 1, 3]}
+,{Category:"Supply",	Name:"B-1 Supply Pack",					TTSName:"Supply Pack",					Icon:"Supply Pack.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 2]}
+,{Category:"Supply",	Name:"FLAM-40 Flamethrower",			TTSName:"Flame thrower",				Icon:"Flamethrower.png",				Throwable:True,		Keys:[2, 3, 1, 2, 1]}
+,{Category:"Supply",	Name:"AX/LAS-5 `"Guard Dog`" Rover",	TTSName:"Guard Dog Rover",				Icon:"Guard Dog Rover.png",				Throwable:True,		Keys:[2, 1, 3, 1, 4, 4]}
+,{Category:"Supply",	Name:"GR-8 Recoilless Rifle",			TTSName:"Recoilless Rifle",				Icon:"Recoilless Rifle.png",			Throwable:True,		Keys:[2, 3, 4, 4, 3]}
+,{Category:"Supply",	Name:"LIFT-850 Jump Pack",				TTSName:"Jump Pack",					Icon:"Jump Pack.png",					Throwable:True,		Keys:[2, 1, 1, 2, 1]}
+,{Category:"Supply",	Name:"APW-1 Anti-Materiel Rifle",		TTSName:"Anti-Material Rifle",			Icon:"Anti-Material Rifle.png",			Throwable:True,		Keys:[2, 3, 4, 1, 2]}
+,{Category:"Supply",	Name:"EAT-17 Expendable Anti-Tank",		TTSName:"Expendable Anti-Tank",			Icon:"Expendable Anti-Tank.png",		Throwable:True,		Keys:[2, 2, 3, 1, 4]}
+,{Category:"Supply",	Name:"LAS-99 Quasar Cannon",			TTSName:"Quasar Cannon",				Icon:"Quasar Cannon.png",				Throwable:True,		Keys:[2, 2, 1, 3, 4]}
+,{Category:"Defensive",	Name:"Anti-Tank Mines",					TTSName:"Anti-Tank Mines",				Icon:"Anti-Tank Mines.png",				Throwable:True,		Keys:[2, 3, 1, 1]}
+,{Category:"Defensive",	Name:"FX-12 Shield Generator Relay",	TTSName:"Shield Generator Relay",		Icon:"Shield Generator Relay.png",		Throwable:True,		Keys:[2, 2, 3, 4, 3, 4]}
+,{Category:"Defensive",	Name:"A/M-23 EMS Mortar Sentry",		TTSName:"E M S Mortar Sentry",			Icon:"EMS Mortar Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 2, 4]}
+,{Category:"Defensive",	Name:"A/MLS-4X Rocket Sentry",			TTSName:"Rocket Sentry",				Icon:"Rocket Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 4, 3]}
+,{Category:"Defensive",	Name:"A/G-16 Gatling Sentry",			TTSName:"Gatling Sentry",				Icon:"Gatling Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 3]}
+,{Category:"Defensive",	Name:"A/ARC-3 Tesla Tower",				TTSName:"Tesla Tower",					Icon:"Tesla Tower.png",					Throwable:True,		Keys:[2, 1, 4, 1, 3, 4]}
+,{Category:"Defensive",	Name:"A/M-12 Mortar Sentry",			TTSName:"Mortar Sentry",				Icon:"Mortar Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 4, 2]}
+,{Category:"Defensive",	Name:"MD-6 Anti-Personnel Minefield",	TTSName:"Anti-Personnel Minefield",		Icon:"Anti-Personnel Minefield.png",	Throwable:True,		Keys:[2, 3, 1, 4]}
+,{Category:"Defensive",	Name:"A/MG-43 Machine Gun Sentry",		TTSName:"Machine Gun Sentry",			Icon:"Machine Gun Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 4, 1]}
+,{Category:"Defensive",	Name:"A/AC-8 Autocannon Sentry",		TTSName:"Autocannon Sentry",			Icon:"Autocannon Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 1, 3, 1]}
+,{Category:"Defensive",	Name:"MD-I4 Incendiary Mines",			TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]}
+,{Category:"Defensive",	Name:"E/MG-101 HMG Emplacement",		TTSName:"H M G Emplacement",			Icon:"HMG Emplacement.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 3]}]
 
 ConstructGUI
 
@@ -150,30 +154,31 @@ ConstructGUI() {
 	ButtonArray[17].OnEvent("Click", ShowStratagemMenu.Bind(17))
 
 	Tab.UseTab(2)
-	HotkeyGUI.Add("Text", "Section", "Minimum press/click delay")
-	HotkeyGUI.Add("Edit", "ys Limit3 Number w75 Background4B4B4B cBABABA").OnEvent("Change", ChangeSetting.Bind("MinimumDelay"))
+	HotkeyGUI.Add("Text", "Section y+10", "Minimum press/click delay")
+	HotkeyGUI.Add("Edit", "ys yp-3 Limit3 Number w75 Background4B4B4B cBABABA").OnEvent("Change", ChangeSetting.Bind("MinimumDelay"))
 	Global MinimumDelay := HotkeyGUI.Add("UpDown", "vMinUpDown Range0-999", IniRead("HD2 Config.ini", "Settings", "MinimumDelay", "40"))
 	MinimumDelay.OnEvent("Change", ChangeSetting.Bind("MinimumDelay"))
 	HotkeyGUI.Add("Text", "ys", "milliseconds (Default: 40)")
 	HotkeyGUI.Add("Text", "xs", "If the macro is failing to input the stratagem properly, try increasing this value.")
 	HotkeyGUI.Add("Text", "xs y+30", "Stratagem keys:")
 	HotkeyGUI.Add("Text", "Section", "Open stratagem list")
-	Global StratagemKey := HotkeyGUI.Add("DropDownList", "ys Background4B4B4B cBABABA", ["Alt", "Control", "Shift"])
+	Global StratagemKey := HotkeyGUI.Add("DropDownList", "ys yp-4 Background4B4B4B cBABABA", ["Alt", "Control", "Shift"])
 	StratagemKey.OnEvent("Change", ChangeKey.Bind("StratagemKey", "Control"))
 	StratagemKey.Value := IniRead("HD2 Config.ini", "Settings", "StratagemKey", 2)
 	HotkeyGUI.Add("Text", "ys", "Note: input type has to be set to `"HOLD`" in game.")
-	HotkeyGUI.Add("Text", "xs Section w90", "Up")
-	HotkeyGUI.Add("Text",, "Down")
-	HotkeyGUI.Add("Text",, "Left")
-	HotkeyGUI.Add("Text",, "Right")
-	UpKey := HotkeyGUI.Add("Hotkey", "vUpKey ys Limit190", IniRead("HD2 Config.ini", "Settings", "UpKey", "w"))
+	HotkeyGUI.Add("Text", "Section xs y+15 w90", "Up")
+	UpKey := HotkeyGUI.Add("Hotkey", "vUpKey ys yp-4 Limit190", IniRead("HD2 Config.ini", "Settings", "UpKey", "w"))
 	UpKey.OnEvent("Change", ChangeKey.Bind("UpKey", "w"))
-	DownKey := HotkeyGUI.Add("Hotkey", "vDownKey Limit190", IniRead("HD2 Config.ini", "Settings", "DownKey", "s"))
+	HotkeyGUI.Add("Text", "Section xs y+11 w90", "Down")
+	DownKey := HotkeyGUI.Add("Hotkey", "vDownKey ys yp-4 Limit190", IniRead("HD2 Config.ini", "Settings", "DownKey", "s"))
 	DownKey.OnEvent("Change", ChangeKey.Bind("DownKey", "s"))
-	LeftKey := HotkeyGUI.Add("Hotkey", "vLeftKey Limit190", IniRead("HD2 Config.ini", "Settings", "LeftKey", "a"))
+	HotkeyGUI.Add("Text", "Section xs y+11 w90", "Left")
+	LeftKey := HotkeyGUI.Add("Hotkey", "vLeftKey ys yp-4 Limit190", IniRead("HD2 Config.ini", "Settings", "LeftKey", "a"))
 	LeftKey.OnEvent("Change", ChangeKey.Bind("LeftKey", "a"))
-	RightKey := HotkeyGUI.Add("Hotkey", "vRightKey Limit190", IniRead("HD2 Config.ini", "Settings", "RightKey", "d"))
+	HotkeyGUI.Add("Text", "Section xs y+11 w90", "Right")
+	RightKey := HotkeyGUI.Add("Hotkey", "vRightKey ys yp-4 Limit190", IniRead("HD2 Config.ini", "Settings", "RightKey", "d"))
 	RightKey.OnEvent("Change", ChangeKey.Bind("RightKey", "d"))
+
 	Global KeyArray := Array(UpKey.Value, DownKey.Value, LeftKey.Value, RightKey.Value)
 	Try {
 		Global SAPI := ComObject("SAPI.SpVoice")
@@ -185,18 +190,20 @@ ConstructGUI() {
 		Global TextToSpeech := HotkeyGUI.Add("CheckBox", "vTextToSpeech Section xs y+30", "Read out loud activated stratagem's name")
 		TextToSpeech.OnEvent("Click", ChangeSetting.Bind("TextToSpeech"))
 		TextToSpeech.Value := IniRead("HD2 Config.ini", "Settings", "TextToSpeech", 0)
-		HotkeyGUI.Add("Text", "Section", "Voice")
-		Voice := HotkeyGUI.Add("DropDownList", "ys w300 Background4B4B4B cBABABA", Voices)
+		HotkeyGUI.Add("Text", "Section y+15 xp+18", "Voice")
+		Voice := HotkeyGUI.Add("DropDownList", "ys yp-4 w300 Background4B4B4B cBABABA", Voices)
 		Voice.OnEvent("Change", ChangeVoice.Bind("Voice"))
 		Voice.Value := IniRead("HD2 Config.ini", "Settings", "Voice", 1)
+		If !TextToSpeech.Value
+			Voice.Enabled := False
 	}
-	AutoThrowTooltip := HotkeyGUI.Add("CheckBox", "vAutoThrowTooltip Section xs y+30", "Show `"Throw Automatically`" help tip")
-	AutoThrowTooltip.OnEvent("Click", ChangeSetting.Bind("AutoThrowTooltip"))
-	AutoThrowTooltip.Value := IniRead("HD2 Config.ini", "Settings", "AutoThrowTooltip", 1)
+	AutoThrowTooltips := HotkeyGUI.Add("CheckBox", "vAutoThrowTooltips Section xm+12 y+30", "Show `"Throw Automatically`" help tips")
+	AutoThrowTooltips.OnEvent("Click", ChangeSetting.Bind("AutoThrowTooltips"))
+	AutoThrowTooltips.Value := IniRead("HD2 Config.ini", "Settings", "AutoThrowTooltips", 1)
 
 	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2.0")
+	HotkeyGUI.Add("Text", "xs", "Version 2.1")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
@@ -208,15 +215,15 @@ ConstructGUI() {
 				ProfileArray.Push(Profile)
 		}
 	}
-	HotkeyGUI.Add("Text", "Section", "Profile")
-	ActiveProfile := HotkeyGUI.Add("DropDownList", "ys w180 Background4B4B4B cBABABA", ProfileArray)
+	HotkeyGUI.Add("Text", "Section y+11", "Profile")
+	ActiveProfile := HotkeyGUI.Add("DropDownList", "ys w180 yp-4 Background4B4B4B cBABABA", ProfileArray)
 	ActiveProfile.OnEvent("Change", LoadProfile)
 	ActiveProfile.Focus
 	Try ActiveProfile.Text := IniRead("HD2 Config.ini", "Settings", "ActiveProfile", "Default")
 	Catch
 		ActiveProfile.Text := "Default"
-	HotkeyGUI.Add("Button", "ys w80 Background171717", "Add profile").OnEvent("Click", AddProfileClick)
-	DeleteProfile := HotkeyGUI.Add("Button", "ys w80 Background171717", "Delete profile")
+	HotkeyGUI.Add("Button", "ys yp-1 w80 Background171717", "Add profile").OnEvent("Click", AddProfileClick)
+	DeleteProfile := HotkeyGUI.Add("Button", "ys yp-1 w80 Background171717", "Delete profile")
 	DeleteProfile.OnEvent("Click", DeleteProfileClick)
 	LoadProfile
 
@@ -242,44 +249,40 @@ ConstructGUI() {
 	}
 
 	ShowStratagemMenu(HotkeyID, ButtonID, *) {
-		If HotkeyArray[HotkeyID + 17]
+		If !StratagemArray[HotkeyArray[HotkeyID]].Throwable
+			StratagemMenu.Disable("Throw Automatically")
+		Else If HotkeyArray[HotkeyID + 17]
 			StratagemMenu.Check("Throw Automatically")
-		Else
-			StratagemMenu.Uncheck("Throw Automatically")
 		Global MenuIDs := Array(HotkeyID,ButtonID)
-		Stratagem := StratagemArray[HotkeyArray[HotkeyID]].Name
+		Stratagem := StratagemArray[HotkeyArray[HotkeyID]]
 		Category := StratagemArray[HotkeyArray[HotkeyID]].Category
 		Switch Category {
-			Case "No Stratagem": StratagemMenu.Check(Stratagem)
-			Case "Common": CommonSubmenu.Check(Stratagem)
-			Case "Mission": MissionSubmenu.Check(Stratagem)
-			Case "Offensive": OffensiveSubmenu.Check(Stratagem)
-			Case "Supply": SupplySubmenu.Check(Stratagem)
-			Case "Defensive": DefensiveSubmenu.Check(Stratagem)
+			Case "No Stratagem": SelectedMenu := StratagemMenu
+			Case "Common": SelectedMenu := CommonSubmenu
+			Case "Mission": SelectedMenu := MissionSubmenu
+			Case "Offensive": SelectedMenu := OffensiveSubmenu
+			Case "Supply": SelectedMenu := SupplySubmenu
+			Case "Defensive": SelectedMenu := DefensiveSubmenu
 		}
+		SelectedMenu.Check(StratagemMenuName(Stratagem))
 		ControlGetPos &x, &y,, &h, ButtonID
 		StratagemMenu.Show(x, y + h)
-		Switch Category {
-			Case "No Stratagem": StratagemMenu.Uncheck(Stratagem)
-			Case "Common": CommonSubmenu.Uncheck(Stratagem)
-			Case "Mission": MissionSubmenu.Uncheck(Stratagem)
-			Case "Offensive": OffensiveSubmenu.Uncheck(Stratagem)
-			Case "Supply": SupplySubmenu.Uncheck(Stratagem)
-			Case "Defensive": DefensiveSubmenu.Uncheck(Stratagem)
-		}
+		StratagemMenu.Enable("Throw Automatically")
+		StratagemMenu.Uncheck("Throw Automatically")
+		SelectedMenu.Uncheck(StratagemMenuName(Stratagem))
 	}
 
 	StratagemMenuHandler(Index, *) {
+		AutothrowIndex := MenuIDs[1] + 17
 		If Index = 0 {
-			Index := MenuIDs[1] + 17
-			If HotkeyArray[Index] {
-				HotkeyArray[Index] := 0
+			If HotkeyArray[AutothrowIndex] {
+				HotkeyArray[AutothrowIndex] := 0
 				MenuIDs[2].SetFont("")
 			}
 			Else {
-				HotkeyArray[Index] := 1
+				HotkeyArray[AutothrowIndex] := 1
 				MenuIDs[2].SetFont("italic")
-				If AutoThrowTooltip.Value {
+				If AutoThrowTooltips.Value {
 					ControlGetPos &x, &y,, &h, MenuIDs[2]
 					ToolTip("Note: you must have FIRE key bound to Right Mouse Button.", x, y - 25)
 					SetTimer () => ToolTip(), -5000
@@ -287,14 +290,32 @@ ConstructGUI() {
 			}
 		}
 		Else {
+			If !StratagemArray[Index].Throwable && HotkeyArray[AutothrowIndex] {
+				HotkeyArray[AutothrowIndex] := 0
+				MenuIDs[2].SetFont("")
+				If AutoThrowTooltips.Value {
+					ControlGetPos &x, &y,, &h, MenuIDs[2]
+					If (Index > 1)
+						ToolTip(StratagemArray[Index].Name " cannot be thrown, autothrow disabled.", x, y - 25)
+					Else
+						ToolTip("Autothrow disabled.", x, y - 25)
+					SetTimer () => ToolTip(), -5000
+				}
+			}
 			HotkeyArray[MenuIDs[1]] := Index
 			ModifyButton(MenuIDs[2], MenuIDs[1])
+			If TextToSpeech.Value
+				Try SAPI.Speak(StratagemArray[Index].TTSName, 1)
 		}
 		SaveActiveProfile
 	}
 
 	ChangeSetting(SettingName, ControlID, *) {
 		IniWrite ControlID.Value, "HD2 Config.ini", "Settings", SettingName
+		If TextToSpeech.Value
+			Voice.Enabled := True
+		Else
+			Voice.Enabled := False
 	}
 
 	ChangeKey(SettingName, DefaultKey, ControlID, *) {
@@ -397,30 +418,19 @@ ConstructGUI() {
 	OffensiveSubmenu := Menu()
 	SupplySubmenu := Menu()
 	DefensiveSubmenu := Menu()
-	For Stratagem in StratagemArray {
-		Switch Stratagem.Category {
-			Case "Common":
-				CommonSubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
-				Try CommonSubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
-			Case "Mission":
-				MissionSubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
-				Try MissionSubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
-			Case "Offensive":
-				OffensiveSubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
-				Try OffensiveSubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
-			Case "Supply":
-				SupplySubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
-				Try SupplySubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
-			Case "Defensive":
-				DefensiveSubmenu.Add(Stratagem.Name, StratagemMenuHandler.Bind(A_Index))
-				Try DefensiveSubmenu.SetIcon(Stratagem.Name, "resources\" Stratagem.Icon,,28)
-		}
-	}
 	StratagemMenu.Add("Throw automatically", StratagemMenuHandler.Bind(0))
 	Try StratagemMenu.SetIcon("Throw automatically", "resources\Throw.png",,28)
 	StratagemMenu.Add
-	StratagemMenu.Add("No Stratagem", StratagemMenuHandler.Bind(1))
-	Try StratagemMenu.SetIcon("No Stratagem", "resources\No Stratagem.png",,28)
+	For Stratagem in StratagemArray {
+		Switch Stratagem.Category {
+			Case "No Stratagem":AddMenuItem(StratagemMenu, Stratagem)
+			Case "Common":AddMenuItem(CommonSubmenu, Stratagem)
+			Case "Mission":AddMenuItem(MissionSubmenu, Stratagem)
+			Case "Offensive": AddMenuItem(OffensiveSubmenu, Stratagem)
+			Case "Supply": AddMenuItem(SupplySubmenu, Stratagem)
+			Case "Defensive": AddMenuItem(DefensiveSubmenu, Stratagem)
+		}
+	}
 	StratagemMenu.Add("Common", CommonSubmenu)
 	Try StratagemMenu.SetIcon("Common", "resources\Reinforce.png",,28)
 	StratagemMenu.Add("Mission", MissionSubmenu)
@@ -432,6 +442,27 @@ ConstructGUI() {
 	StratagemMenu.Add("Defensive", DefensiveSubmenu)
 	Try StratagemMenu.SetIcon("Defensive", "resources\Anti-Tank Mines.png",,28)
 	StratagemMenu.SetColor("BABABA", true)
+
+	AddMenuItem(Submenu, Stratagem) {
+		MenuItemName := StratagemMenuName(Stratagem)
+		Submenu.Add(MenuItemName, StratagemMenuHandler.Bind(A_Index))
+		Try Submenu.SetIcon(MenuItemName, "resources\" Stratagem.Icon,,28)
+	}
+
+	StratagemMenuName(Stratagem) {
+		if Stratagem.Keys.Length < 1
+			Return MenuItemName := Stratagem.Name
+		MenuItemName := Stratagem.Name "	"
+		For Key in Stratagem.Keys {
+			Switch Key {
+				Case 1: MenuItemName := MenuItemName " 🡅"
+				Case 2: MenuItemName := MenuItemName " 🡇"
+				Case 3: MenuItemName := MenuItemName " 🡄"
+				Case 4: MenuItemName := MenuItemName " 🡆"
+			}
+		}
+		Return MenuItemName
+	}
 }
 
 #HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[1] > 1)
@@ -515,7 +546,7 @@ NumpadDel::PlayKeys(17)
 PlayKeys(HotkeyID) {
 	StratagemID := HotkeyArray[HotkeyID]
 	If TextToSpeech.Value
-		Try SAPI.Speak(StratagemArray[StratagemID].Name, 1)
+		Try SAPI.Speak(StratagemArray[StratagemID].TTSName, 1)
 	Keys := StratagemArray[StratagemID].Keys
 	MinDelay := MinimumDelay.Value
 	MaxDelay := MinDelay*2
