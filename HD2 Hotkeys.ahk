@@ -466,80 +466,80 @@ ConstructGUI() {
 	}
 }
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[1] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[1] > 1
 NumLock::PlayKeys(1)
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[2] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[2] > 1
 NumpadDiv::PlayKeys(2)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[3] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[3] > 1
 NumpadMult::PlayKeys(3)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[4] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[4] > 1
 NumpadSub::PlayKeys(4)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[5] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[5] > 1
 Numpad7::
 NumpadHome::PlayKeys(5)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[6] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[6] > 1
 Numpad8::
 NumpadUp::PlayKeys(6)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[7] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[7] > 1
 Numpad9::
 NumpadPgUp::PlayKeys(7)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[8] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[8] > 1
 NumpadAdd::PlayKeys(8)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[9] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[9] > 1
 Numpad4::
 NumpadLeft::PlayKeys(9)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[10] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[10] > 1
 Numpad5::
 NumpadClear::PlayKeys(10)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[11] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[11] > 1
 Numpad6::
 NumpadRight::PlayKeys(11)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[12] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[12] > 1
 Numpad1::
 NumpadEnd::PlayKeys(12)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[13] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[13] > 1
 Numpad2::
 NumpadDown::PlayKeys(13)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[14] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[14] > 1
 Numpad3::
 NumpadPgDn::PlayKeys(14)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[15] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[15] > 1
 NumpadEnter::PlayKeys(15)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[16] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[16] > 1
 Numpad0::
 NumpadIns::PlayKeys(16)
 #HotIf
 
-#HotIf (WinActive("HELLDIVERS™ 2")) && (HotkeyArray[17] > 1)
+#HotIf WinActive("HELLDIVERS™ 2") && HotkeyArray[17] > 1
 NumpadDot::
 NumpadDel::PlayKeys(17)
 #HotIf
