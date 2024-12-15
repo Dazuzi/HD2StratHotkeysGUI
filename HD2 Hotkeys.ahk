@@ -1,13 +1,13 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2.3
+Version 2.4
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 ;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
 ;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-;@Ahk2Exe-SetFileVersion 2.3.0.0
+;@Ahk2Exe-SetFileVersion 2.4.0.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
@@ -74,6 +74,7 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Supply",		Name:"LAS-99 Quasar Cannon",				TTSName:"Quasar Cannon",				Icon:"Quasar Cannon.png",				Throwable:True,		Keys:[2, 2, 1, 3, 4]},
 {Category:"Supply",		Name:"AX/TX-13 `"Guard Dog`" Dog Breath",	TTSName:"Guard Dog Dog Breath",			Icon:"Guard Dog Dog Breath.png",		Throwable:True,		Keys:[2, 1, 3, 1, 4, 1]},
 {Category:"Supply",		Name:"TX-41 Sterilizer",					TTSName:"Sterilizer",					Icon:"Sterilizer.png",					Throwable:True,		Keys:[2, 3, 1, 2, 3]},
+{Category:"Supply",		Name:"SH-51 Directional Shield",			TTSName:"Directional Shield",			Icon:"Directional Shield.png",			Throwable:True,		Keys:[2, 1, 3, 4, 1, 1]},
 {Category:"Defensive",	Name:"Anti-Tank Mines",						TTSName:"Anti-Tank Mines",				Icon:"Anti-Tank Mines.png",				Throwable:True,		Keys:[2, 3, 1, 1]},
 {Category:"Defensive",	Name:"FX-12 Shield Generator Relay",		TTSName:"Shield Generator Relay",		Icon:"Shield Generator Relay.png",		Throwable:True,		Keys:[2, 2, 3, 4, 3, 4]},
 {Category:"Defensive",	Name:"A/M-23 EMS Mortar Sentry",			TTSName:"E M S Mortar Sentry",			Icon:"EMS Mortar Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 2, 4]},
@@ -85,7 +86,9 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Defensive",	Name:"A/MG-43 Machine Gun Sentry",			TTSName:"Machine Gun Sentry",			Icon:"Machine Gun Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 4, 1]},
 {Category:"Defensive",	Name:"A/AC-8 Autocannon Sentry",			TTSName:"Autocannon Sentry",			Icon:"Autocannon Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 1, 3, 1]},
 {Category:"Defensive",	Name:"E/MG-101 HMG Emplacement",			TTSName:"H M G Emplacement",			Icon:"HMG Emplacement.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 3]},
-{Category:"Defensive",	Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]}]
+{Category:"Defensive",	Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]},
+{Category:"Defensive",	Name:"A/FLAM-40 Flame Sentry",				TTSName:"Flame Sentry",					Icon:"Flame Sentry.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]},
+{Category:"Defensive",	Name:"E/AT-12 Anti-Tank Emplacement",		TTSName:"Anti-Tank Emplacement",		Icon:"Anti-Tank Emplacement.png",		Throwable:True,		Keys:[2, 1, 4, 2, 1, 1]}]
 
 ConstructGUI
 
@@ -206,7 +209,7 @@ ConstructGUI() {
 
 	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2.3")
+	HotkeyGUI.Add("Text", "xs", "Version 2.4")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
