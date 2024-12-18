@@ -75,7 +75,7 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Supply: backpack",		Name:"AX/TX-13 `"Guard Dog`" Dog Breath",	TTSName:"Guard Dog Dog Breath",			Icon:"Guard Dog Dog Breath.png",		Throwable:True,		Keys:[2, 1, 3, 1, 4, 1]},
 {Category:"Supply: weapon",			Name:"TX-41 Sterilizer",					TTSName:"Sterilizer",					Icon:"Sterilizer.png",					Throwable:True,		Keys:[2, 3, 1, 2, 3]},
 {Category:"Supply: backpack",		Name:"SH-51 Directional Shield",			TTSName:"Directional Shield",			Icon:"Directional Shield.png",			Throwable:True,		Keys:[2, 1, 3, 4, 1, 1]},
-{Category:"Supply: weapon",			Name:"StA-X3 W.A.S.P. Launcher",			TTSName:"WASP Launcher",				Icon:"W.A.S.P. Launcher.png",			Throwable:True,		Keys:[2, 1, 3, 4, 1, 1]},
+{Category:"Supply: weapon",			Name:"StA-X3 W.A.S.P. Launcher",			TTSName:"WASP Launcher",				Icon:"W.A.S.P. Launcher.png",			Throwable:True,		Keys:[2, 2, 1, 2, 4]},
 {Category:"Defensive: mine",		Name:"Anti-Tank Mines",						TTSName:"Anti-Tank Mines",				Icon:"Anti-Tank Mines.png",				Throwable:True,		Keys:[2, 3, 1, 1]},
 {Category:"Defensive: other",		Name:"FX-12 Shield Generator Relay",		TTSName:"Shield Generator Relay",		Icon:"Shield Generator Relay.png",		Throwable:True,		Keys:[2, 2, 3, 4, 3, 4]},
 {Category:"Defensive: sentry",		Name:"A/M-23 EMS Mortar Sentry",			TTSName:"E M S Mortar Sentry",			Icon:"EMS Mortar Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 2, 4]},
