@@ -1,94 +1,95 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2.4
+Version 2.5
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 ;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
 ;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-;@Ahk2Exe-SetFileVersion 2.4.0.0
+;@Ahk2Exe-SetFileVersion 2.5.0.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
 #NoTrayIcon
 
-StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Stratagem.png", Throwable:False, Keys:[]},												;1 = Up, 2 = Down, 3 = Left & 4 = Right
-{Category:"Common",		Name:"Reinforce",							TTSName:"Reinforce",					Icon:"Reinforce.png",					Throwable:True,		Keys:[1, 2, 4, 3, 1]},
-{Category:"Common",		Name:"SoS Beacon",							TTSName:"S O S Beacon",					Icon:"SoS Beacon.png",					Throwable:True,		Keys:[1, 2, 4, 1]},
-{Category:"Common",		Name:"Resupply",							TTSName:"Resupply",						Icon:"Resupply.png",					Throwable:True,		Keys:[2, 2, 1, 4]},
-{Category:"Common",		Name:"Eagle Rearm",							TTSName:"Eagle Rearm",					Icon:"Eagle Rearm.png",					Throwable:False,	Keys:[1, 1, 3, 1, 4]},
-{Category:"Mission",	Name:"SSSD Delivery",						TTSName:"S S S D Delivery",				Icon:"SSSD Delivery.png",				Throwable:True,		Keys:[2, 2, 2, 1, 1]},
-{Category:"Mission",	Name:"Prospecting Drill",					TTSName:"Prospecting Drill",			Icon:"Prospecting Drill.png",			Throwable:False,	Keys:[2, 2, 3, 4, 2, 2]},
-{Category:"Mission",	Name:"Super Earth Flag",					TTSName:"Super Earth Flag",				Icon:"Super Earth Flag.png",			Throwable:False,	Keys:[2, 1, 2, 1]},
-{Category:"Mission",	Name:"NUX-223 Hellbomb",					TTSName:"Hellbomb",						Icon:"Hellbomb.png",					Throwable:True,		Keys:[2, 1, 3, 2, 1, 4, 2, 1]},
-{Category:"Mission",	Name:"Upload Data",							TTSName:"Upload Data",					Icon:"Upload Data.png",					Throwable:False,	Keys:[3, 4, 1, 1, 1]},
-{Category:"Mission",	Name:"Seismic Probe",						TTSName:"Seismic Probe",				Icon:"Seismic Probe.png",				Throwable:False,	Keys:[1, 1, 3, 4, 2, 2]},
-{Category:"Mission",	Name:"Orbital Illumination Flare",			TTSName:"Orbital Illumination Flare",	Icon:"Orbital Illumination Flare.png",	Throwable:True,		Keys:[4, 4, 3, 3]},
-{Category:"Mission",	Name:"SEAF Artillery",						TTSName:"S E A F Artillery",			Icon:"SEAF Artillery.png",				Throwable:True,		Keys:[4, 1, 1, 2]},
-{Category:"Mission",	Name:"Dark Fluid Vessel",					TTSName:"Dark Fluid Vessel",			Icon:"Dark Fluid Vessel.png",			Throwable:True,		Keys:[1, 3, 4, 2, 1, 1]},
-{Category:"Mission",	Name:"Tectonic Drill",						TTSName:"Tectonic Drill",				Icon:"Tectonic Drill.png",				Throwable:False,	Keys:[1, 2, 1, 2, 1, 2]},
-{Category:"Mission",	Name:"Hive Breaker Drill",					TTSName:"Hive Breaker Drill",			Icon:"Hive Breaker Drill.png",			Throwable:False,	Keys:[3, 1, 2, 4, 2, 2]},
-{Category:"Offensive",	Name:"Eagle 500kg Bomb",					TTSName:"Eagle 500K G Bomb",			Icon:"Eagle 500kg Bomb.png",			Throwable:True,		Keys:[1, 4, 2, 2, 2]},
-{Category:"Offensive",	Name:"Orbital Gatling Barrage",				TTSName:"Orbital Gatling Barrage",		Icon:"Orbital Gatling Barrage.png",		Throwable:True,		Keys:[4, 2, 3, 1, 1]},
-{Category:"Offensive",	Name:"Eagle Airstrike",						TTSName:"Eagle Airstrike",				Icon:"Eagle Airstrike.png",				Throwable:True,		Keys:[1, 4, 2, 4]},
-{Category:"Offensive",	Name:"Orbital Walking Barrage",				TTSName:"Orbital Walking Barrage",		Icon:"Orbital Walking Barrage.png",		Throwable:True,		Keys:[4, 2, 4, 2, 4, 2]},
-{Category:"Offensive",	Name:"Eagle Strafing Run",					TTSName:"Eagle Strafing Run",			Icon:"Eagle Strafing Run.png",			Throwable:True,		Keys:[1, 4, 4]},
-{Category:"Offensive",	Name:"Orbital EMS Strike",					TTSName:"Orbital E M S Strike",			Icon:"Orbital EMS Strike.png",			Throwable:True,		Keys:[4, 4, 3, 2]},
-{Category:"Offensive",	Name:"Eagle Smoke Strike",					TTSName:"Eagle Smoke Strike",			Icon:"Eagle Smoke Strike.png",			Throwable:True,		Keys:[1, 4, 1, 2]},
-{Category:"Offensive",	Name:"Orbital Gas Strike",					TTSName:"Orbital Gas Strike",			Icon:"Orbital Gas Strike.png",			Throwable:True,		Keys:[4, 4, 2, 4]},
-{Category:"Offensive",	Name:"Orbital Railcannon Strike",			TTSName:"Orbital Railcannon Strike",	Icon:"Orbital Railcannon Strike.png",	Throwable:True,		Keys:[4, 1, 2, 2, 4]},
-{Category:"Offensive",	Name:"Eagle Cluster Bomb",					TTSName:"Eagle Cluster Bomb",			Icon:"Eagle Cluster Bomb.png",			Throwable:True,		Keys:[1, 4, 2, 2, 4]},
-{Category:"Offensive",	Name:"Orbital Smoke Strike",				TTSName:"Orbital Smoke Strike",			Icon:"Orbital Smoke Strike.png",		Throwable:True,		Keys:[4, 4, 2, 1]},
-{Category:"Offensive",	Name:"Orbital Airburst Strike",				TTSName:"Orbital Airbust Strike",		Icon:"Orbital Airburst Strike.png",		Throwable:True,		Keys:[4, 4, 4]},
-{Category:"Offensive",	Name:"Orbital Napalm Barrage",				TTSName:"Orbital Napalm Barrage",		Icon:"Orbital Napalm Barrage.png",		Throwable:True,		Keys:[4, 4, 2, 3, 4, 1]},
-{Category:"Offensive",	Name:"Orbital Laser",						TTSName:"Orbital Laser",				Icon:"Orbital Laser.png",				Throwable:True,		Keys:[4, 2, 1, 4, 2]},
-{Category:"Offensive",	Name:"Orbital Precision Strike",			TTSName:"Orbital Precision Strike",		Icon:"Orbital Precision Strike.png",	Throwable:True,		Keys:[4, 4, 1]},
-{Category:"Offensive",	Name:"Orbital 380mm HE Barrage",			TTSName:"Orbital 380M M H E Barrage",	Icon:"Orbital 380MM HE Barrage.png",	Throwable:True,		Keys:[4, 2, 1, 1, 3, 2, 2]},
-{Category:"Offensive",	Name:"Eagle Napalm Airstrike",				TTSName:"Eagle Napalm Airstrike",		Icon:"Eagle Napalm Airstrike.png",		Throwable:True,		Keys:[1, 4, 2, 1]},
-{Category:"Offensive",	Name:"Orbital 120mm HE Barrage",			TTSName:"Orbital 120M M H E Barrage",	Icon:"Orbital 120MM HE Barrage.png",	Throwable:True,		Keys:[4, 4, 2, 3, 4, 2]},
-{Category:"Offensive",	Name:"Eagle 110mm Rocket Pods",				TTSName:"Eagle 110M M Rocket Pods",		Icon:"Eagle 110MM Rocket Pods.png",		Throwable:True,		Keys:[1, 4, 1, 3]},
-{Category:"Supply",		Name:"MLS-4X Commando",						TTSName:"Commando",						Icon:"Commando.png",					Throwable:True,		Keys:[2, 3, 1, 2, 4]},
-{Category:"Supply",		Name:"EXO-49 Emancipator Exosuit",			TTSName:"Emancipator Exosuit",			Icon:"Emancipator Exosuit.png",			Throwable:True,		Keys:[3, 2, 4, 1, 3, 2, 1]},
-{Category:"Supply",		Name:"M-105 Stalwart",						TTSName:"Stalwart",						Icon:"Stalwart.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 3]},
-{Category:"Supply",		Name:"AC-8 Autocannon",						TTSName:"Autocannon",					Icon:"Autocannon.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 4]},
-{Category:"Supply",		Name:"EXO-45 Patriot Exosuit",				TTSName:"Patriot Exosuit",				Icon:"Patriot Exosuit.png",				Throwable:True,		Keys:[3, 2, 4, 1, 3, 2, 2]},
-{Category:"Supply",		Name:"MG-206 Heavy Machine Gun",			TTSName:"Heavy Machine Gun",			Icon:"Heavy Machine Gun.png",			Throwable:True,		Keys:[2, 3, 1, 2, 2]},
-{Category:"Supply",		Name:"SH-32 Shield Generator Pack",			TTSName:"Shield Generator Pack",		Icon:"Shield Generator Pack.png",		Throwable:True,		Keys:[2, 1, 3, 4, 3, 4]},
-{Category:"Supply",		Name:"RL-77 Airburst Rocket Launcher",		TTSName:"Airburst Rocket Launcher",		Icon:"Airburst Rocket Launcher.png",	Throwable:True,		Keys:[2, 1, 1, 3, 4]},
-{Category:"Supply",		Name:"RS-422 Railgun",						TTSName:"Railgun",						Icon:"Railgun.png",						Throwable:True,		Keys:[2, 4, 2, 1, 3, 4]},
-{Category:"Supply",		Name:"LAS-98 Laser Cannon",					TTSName:"Laser Cannon",					Icon:"Laser Cannon.png",				Throwable:True,		Keys:[2, 3, 2, 1, 3]},
-{Category:"Supply",		Name:"ARC-3 Arc Thrower",					TTSName:"Arc Thrower",					Icon:"Arc Thrower.png",					Throwable:True,		Keys:[2, 4, 2, 1, 3, 3]},
-{Category:"Supply",		Name:"AX/AR-23 `"Guard Dog`"",				TTSName:"Guard Dog",					Icon:"Guard Dog.png",					Throwable:True,		Keys:[2, 1, 3, 1, 4, 2]},
-{Category:"Supply",		Name:"FAF-14 Spear",						TTSName:"Spear",						Icon:"Spear.png",						Throwable:True,		Keys:[2, 2, 1, 2, 2]},
-{Category:"Supply",		Name:"GL-21 Grenade Launcher",				TTSName:"Grenade Launcher",				Icon:"Grenade Launcher.png",			Throwable:True,		Keys:[2, 3, 1, 3, 2]},
-{Category:"Supply",		Name:"MG-43 Machine Gun",					TTSName:"Machine Gun",					Icon:"Machine Gun.png",					Throwable:True,		Keys:[2, 3, 2, 1, 4]},
-{Category:"Supply",		Name:"SH-20 Ballistic Shield Backpack",		TTSName:"Ballistic Shield Backpack",	Icon:"Ballistic Shield Backpack.png",	Throwable:True,		Keys:[2, 3, 2, 2, 1, 3]},
-{Category:"Supply",		Name:"B-1 Supply Pack",						TTSName:"Supply Pack",					Icon:"Supply Pack.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 2]},
-{Category:"Supply",		Name:"FLAM-40 Flamethrower",				TTSName:"Flame thrower",				Icon:"Flamethrower.png",				Throwable:True,		Keys:[2, 3, 1, 2, 1]},
-{Category:"Supply",		Name:"AX/LAS-5 `"Guard Dog`" Rover",		TTSName:"Guard Dog Rover",				Icon:"Guard Dog Rover.png",				Throwable:True,		Keys:[2, 1, 3, 1, 4, 4]},
-{Category:"Supply",		Name:"GR-8 Recoilless Rifle",				TTSName:"Recoilless Rifle",				Icon:"Recoilless Rifle.png",			Throwable:True,		Keys:[2, 3, 4, 4, 3]},
-{Category:"Supply",		Name:"LIFT-850 Jump Pack",					TTSName:"Jump Pack",					Icon:"Jump Pack.png",					Throwable:True,		Keys:[2, 1, 1, 2, 1]},
-{Category:"Supply",		Name:"APW-1 Anti-Materiel Rifle",			TTSName:"Anti-Material Rifle",			Icon:"Anti-Material Rifle.png",			Throwable:True,		Keys:[2, 3, 4, 1, 2]},
-{Category:"Supply",		Name:"EAT-17 Expendable Anti-Tank",			TTSName:"Expendable Anti-Tank",			Icon:"Expendable Anti-Tank.png",		Throwable:True,		Keys:[2, 2, 3, 1, 4]},
-{Category:"Supply",		Name:"LAS-99 Quasar Cannon",				TTSName:"Quasar Cannon",				Icon:"Quasar Cannon.png",				Throwable:True,		Keys:[2, 2, 1, 3, 4]},
-{Category:"Supply",		Name:"AX/TX-13 `"Guard Dog`" Dog Breath",	TTSName:"Guard Dog Dog Breath",			Icon:"Guard Dog Dog Breath.png",		Throwable:True,		Keys:[2, 1, 3, 1, 4, 1]},
-{Category:"Supply",		Name:"TX-41 Sterilizer",					TTSName:"Sterilizer",					Icon:"Sterilizer.png",					Throwable:True,		Keys:[2, 3, 1, 2, 3]},
-{Category:"Supply",		Name:"SH-51 Directional Shield",			TTSName:"Directional Shield",			Icon:"Directional Shield.png",			Throwable:True,		Keys:[2, 1, 3, 4, 1, 1]},
-{Category:"Defensive",	Name:"Anti-Tank Mines",						TTSName:"Anti-Tank Mines",				Icon:"Anti-Tank Mines.png",				Throwable:True,		Keys:[2, 3, 1, 1]},
-{Category:"Defensive",	Name:"FX-12 Shield Generator Relay",		TTSName:"Shield Generator Relay",		Icon:"Shield Generator Relay.png",		Throwable:True,		Keys:[2, 2, 3, 4, 3, 4]},
-{Category:"Defensive",	Name:"A/M-23 EMS Mortar Sentry",			TTSName:"E M S Mortar Sentry",			Icon:"EMS Mortar Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 2, 4]},
-{Category:"Defensive",	Name:"A/MLS-4X Rocket Sentry",				TTSName:"Rocket Sentry",				Icon:"Rocket Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 4, 3]},
-{Category:"Defensive",	Name:"A/G-16 Gatling Sentry",				TTSName:"Gatling Sentry",				Icon:"Gatling Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 3]},
-{Category:"Defensive",	Name:"A/ARC-3 Tesla Tower",					TTSName:"Tesla Tower",					Icon:"Tesla Tower.png",					Throwable:True,		Keys:[2, 1, 4, 1, 3, 4]},
-{Category:"Defensive",	Name:"A/M-12 Mortar Sentry",				TTSName:"Mortar Sentry",				Icon:"Mortar Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 4, 2]},
-{Category:"Defensive",	Name:"MD-6 Anti-Personnel Minefield",		TTSName:"Anti-Personnel Minefield",		Icon:"Anti-Personnel Minefield.png",	Throwable:True,		Keys:[2, 3, 1, 4]},
-{Category:"Defensive",	Name:"A/MG-43 Machine Gun Sentry",			TTSName:"Machine Gun Sentry",			Icon:"Machine Gun Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 4, 1]},
-{Category:"Defensive",	Name:"A/AC-8 Autocannon Sentry",			TTSName:"Autocannon Sentry",			Icon:"Autocannon Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 1, 3, 1]},
-{Category:"Defensive",	Name:"E/MG-101 HMG Emplacement",			TTSName:"H M G Emplacement",			Icon:"HMG Emplacement.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 3]},
-{Category:"Defensive",	Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]},
-{Category:"Defensive",	Name:"A/FLAM-40 Flame Sentry",				TTSName:"Flame Sentry",					Icon:"Flame Sentry.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]},
-{Category:"Defensive",	Name:"E/AT-12 Anti-Tank Emplacement",		TTSName:"Anti-Tank Emplacement",		Icon:"Anti-Tank Emplacement.png",		Throwable:True,		Keys:[2, 1, 4, 2, 1, 1]}]
+StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Stratagem.png", Throwable:False, Keys:[]},															;1 = Up, 2 = Down, 3 = Left & 4 = Right
+{Category:"Common",					Name:"Reinforce",							TTSName:"Reinforce",					Icon:"Reinforce.png",					Throwable:True,		Keys:[1, 2, 4, 3, 1]},
+{Category:"Common",					Name:"SoS Beacon",							TTSName:"S O S Beacon",					Icon:"SoS Beacon.png",					Throwable:True,		Keys:[1, 2, 4, 1]},
+{Category:"Common",					Name:"Resupply",							TTSName:"Resupply",						Icon:"Resupply.png",					Throwable:True,		Keys:[2, 2, 1, 4]},
+{Category:"Common",					Name:"Eagle Rearm",							TTSName:"Eagle Rearm",					Icon:"Eagle Rearm.png",					Throwable:False,	Keys:[1, 1, 3, 1, 4]},
+{Category:"Mission",				Name:"SSSD Delivery",						TTSName:"S S S D Delivery",				Icon:"SSSD Delivery.png",				Throwable:True,		Keys:[2, 2, 2, 1, 1]},
+{Category:"Mission",				Name:"Prospecting Drill",					TTSName:"Prospecting Drill",			Icon:"Prospecting Drill.png",			Throwable:False,	Keys:[2, 2, 3, 4, 2, 2]},
+{Category:"Mission",				Name:"Super Earth Flag",					TTSName:"Super Earth Flag",				Icon:"Super Earth Flag.png",			Throwable:False,	Keys:[2, 1, 2, 1]},
+{Category:"Mission",				Name:"NUX-223 Hellbomb",					TTSName:"Hellbomb",						Icon:"Hellbomb.png",					Throwable:True,		Keys:[2, 1, 3, 2, 1, 4, 2, 1]},
+{Category:"Mission",				Name:"Upload Data",							TTSName:"Upload Data",					Icon:"Upload Data.png",					Throwable:False,	Keys:[3, 4, 1, 1, 1]},
+{Category:"Mission",				Name:"Seismic Probe",						TTSName:"Seismic Probe",				Icon:"Seismic Probe.png",				Throwable:False,	Keys:[1, 1, 3, 4, 2, 2]},
+{Category:"Mission",				Name:"Orbital Illumination Flare",			TTSName:"Orbital Illumination Flare",	Icon:"Orbital Illumination Flare.png",	Throwable:True,		Keys:[4, 4, 3, 3]},
+{Category:"Mission",				Name:"SEAF Artillery",						TTSName:"S E A F Artillery",			Icon:"SEAF Artillery.png",				Throwable:True,		Keys:[4, 1, 1, 2]},
+{Category:"Mission",				Name:"Dark Fluid Vessel",					TTSName:"Dark Fluid Vessel",			Icon:"Dark Fluid Vessel.png",			Throwable:True,		Keys:[1, 3, 4, 2, 1, 1]},
+{Category:"Mission",				Name:"Tectonic Drill",						TTSName:"Tectonic Drill",				Icon:"Tectonic Drill.png",				Throwable:False,	Keys:[1, 2, 1, 2, 1, 2]},
+{Category:"Mission",				Name:"Hive Breaker Drill",					TTSName:"Hive Breaker Drill",			Icon:"Hive Breaker Drill.png",			Throwable:False,	Keys:[3, 1, 2, 4, 2, 2]},
+{Category:"Offensive: eagle",		Name:"Eagle 500kg Bomb",					TTSName:"Eagle 500K G Bomb",			Icon:"Eagle 500kg Bomb.png",			Throwable:True,		Keys:[1, 4, 2, 2, 2]},
+{Category:"Offensive: orbital",		Name:"Orbital Gatling Barrage",				TTSName:"Orbital Gatling Barrage",		Icon:"Orbital Gatling Barrage.png",		Throwable:True,		Keys:[4, 2, 3, 1, 1]},
+{Category:"Offensive: eagle",		Name:"Eagle Airstrike",						TTSName:"Eagle Airstrike",				Icon:"Eagle Airstrike.png",				Throwable:True,		Keys:[1, 4, 2, 4]},
+{Category:"Offensive: orbital",		Name:"Orbital Walking Barrage",				TTSName:"Orbital Walking Barrage",		Icon:"Orbital Walking Barrage.png",		Throwable:True,		Keys:[4, 2, 4, 2, 4, 2]},
+{Category:"Offensive: eagle",		Name:"Eagle Strafing Run",					TTSName:"Eagle Strafing Run",			Icon:"Eagle Strafing Run.png",			Throwable:True,		Keys:[1, 4, 4]},
+{Category:"Offensive: orbital",		Name:"Orbital EMS Strike",					TTSName:"Orbital E M S Strike",			Icon:"Orbital EMS Strike.png",			Throwable:True,		Keys:[4, 4, 3, 2]},
+{Category:"Offensive: eagle",		Name:"Eagle Smoke Strike",					TTSName:"Eagle Smoke Strike",			Icon:"Eagle Smoke Strike.png",			Throwable:True,		Keys:[1, 4, 1, 2]},
+{Category:"Offensive: orbital",		Name:"Orbital Gas Strike",					TTSName:"Orbital Gas Strike",			Icon:"Orbital Gas Strike.png",			Throwable:True,		Keys:[4, 4, 2, 4]},
+{Category:"Offensive: orbital",		Name:"Orbital Railcannon Strike",			TTSName:"Orbital Railcannon Strike",	Icon:"Orbital Railcannon Strike.png",	Throwable:True,		Keys:[4, 1, 2, 2, 4]},
+{Category:"Offensive: eagle",		Name:"Eagle Cluster Bomb",					TTSName:"Eagle Cluster Bomb",			Icon:"Eagle Cluster Bomb.png",			Throwable:True,		Keys:[1, 4, 2, 2, 4]},
+{Category:"Offensive: orbital",		Name:"Orbital Smoke Strike",				TTSName:"Orbital Smoke Strike",			Icon:"Orbital Smoke Strike.png",		Throwable:True,		Keys:[4, 4, 2, 1]},
+{Category:"Offensive: orbital",		Name:"Orbital Airburst Strike",				TTSName:"Orbital Airbust Strike",		Icon:"Orbital Airburst Strike.png",		Throwable:True,		Keys:[4, 4, 4]},
+{Category:"Offensive: orbital",		Name:"Orbital Napalm Barrage",				TTSName:"Orbital Napalm Barrage",		Icon:"Orbital Napalm Barrage.png",		Throwable:True,		Keys:[4, 4, 2, 3, 4, 1]},
+{Category:"Offensive: orbital",		Name:"Orbital Laser",						TTSName:"Orbital Laser",				Icon:"Orbital Laser.png",				Throwable:True,		Keys:[4, 2, 1, 4, 2]},
+{Category:"Offensive: orbital",		Name:"Orbital Precision Strike",			TTSName:"Orbital Precision Strike",		Icon:"Orbital Precision Strike.png",	Throwable:True,		Keys:[4, 4, 1]},
+{Category:"Offensive: orbital",		Name:"Orbital 380mm HE Barrage",			TTSName:"Orbital 380M M H E Barrage",	Icon:"Orbital 380MM HE Barrage.png",	Throwable:True,		Keys:[4, 2, 1, 1, 3, 2, 2]},
+{Category:"Offensive: eagle",		Name:"Eagle Napalm Airstrike",				TTSName:"Eagle Napalm Airstrike",		Icon:"Eagle Napalm Airstrike.png",		Throwable:True,		Keys:[1, 4, 2, 1]},
+{Category:"Offensive: orbital",		Name:"Orbital 120mm HE Barrage",			TTSName:"Orbital 120M M H E Barrage",	Icon:"Orbital 120MM HE Barrage.png",	Throwable:True,		Keys:[4, 4, 2, 3, 4, 2]},
+{Category:"Offensive: eagle",		Name:"Eagle 110mm Rocket Pods",				TTSName:"Eagle 110M M Rocket Pods",		Icon:"Eagle 110MM Rocket Pods.png",		Throwable:True,		Keys:[1, 4, 1, 3]},
+{Category:"Supply: weapon",			Name:"MLS-4X Commando",						TTSName:"Commando",						Icon:"Commando.png",					Throwable:True,		Keys:[2, 3, 1, 2, 4]},
+{Category:"Supply: other",			Name:"EXO-49 Emancipator Exosuit",			TTSName:"Emancipator Exosuit",			Icon:"Emancipator Exosuit.png",			Throwable:True,		Keys:[3, 2, 4, 1, 3, 2, 1]},
+{Category:"Supply: weapon",			Name:"M-105 Stalwart",						TTSName:"Stalwart",						Icon:"Stalwart.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 3]},
+{Category:"Supply: weapon",			Name:"AC-8 Autocannon",						TTSName:"Autocannon",					Icon:"Autocannon.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 4]},
+{Category:"Supply: other",			Name:"EXO-45 Patriot Exosuit",				TTSName:"Patriot Exosuit",				Icon:"Patriot Exosuit.png",				Throwable:True,		Keys:[3, 2, 4, 1, 3, 2, 2]},
+{Category:"Supply: weapon",			Name:"MG-206 Heavy Machine Gun",			TTSName:"Heavy Machine Gun",			Icon:"Heavy Machine Gun.png",			Throwable:True,		Keys:[2, 3, 1, 2, 2]},
+{Category:"Supply: backpack",		Name:"SH-32 Shield Generator Pack",			TTSName:"Shield Generator Pack",		Icon:"Shield Generator Pack.png",		Throwable:True,		Keys:[2, 1, 3, 4, 3, 4]},
+{Category:"Supply: weapon",			Name:"RL-77 Airburst Rocket Launcher",		TTSName:"Airburst Rocket Launcher",		Icon:"Airburst Rocket Launcher.png",	Throwable:True,		Keys:[2, 1, 1, 3, 4]},
+{Category:"Supply: weapon",			Name:"RS-422 Railgun",						TTSName:"Railgun",						Icon:"Railgun.png",						Throwable:True,		Keys:[2, 4, 2, 1, 3, 4]},
+{Category:"Supply: weapon",			Name:"LAS-98 Laser Cannon",					TTSName:"Laser Cannon",					Icon:"Laser Cannon.png",				Throwable:True,		Keys:[2, 3, 2, 1, 3]},
+{Category:"Supply: weapon",			Name:"ARC-3 Arc Thrower",					TTSName:"Arc Thrower",					Icon:"Arc Thrower.png",					Throwable:True,		Keys:[2, 4, 2, 1, 3, 3]},
+{Category:"Supply: backpack",		Name:"AX/AR-23 `"Guard Dog`"",				TTSName:"Guard Dog",					Icon:"Guard Dog.png",					Throwable:True,		Keys:[2, 1, 3, 1, 4, 2]},
+{Category:"Supply: weapon",			Name:"FAF-14 Spear",						TTSName:"Spear",						Icon:"Spear.png",						Throwable:True,		Keys:[2, 2, 1, 2, 2]},
+{Category:"Supply: weapon",			Name:"GL-21 Grenade Launcher",				TTSName:"Grenade Launcher",				Icon:"Grenade Launcher.png",			Throwable:True,		Keys:[2, 3, 1, 3, 2]},
+{Category:"Supply: weapon",			Name:"MG-43 Machine Gun",					TTSName:"Machine Gun",					Icon:"Machine Gun.png",					Throwable:True,		Keys:[2, 3, 2, 1, 4]},
+{Category:"Supply: backpack",		Name:"SH-20 Ballistic Shield Backpack",		TTSName:"Ballistic Shield Backpack",	Icon:"Ballistic Shield Backpack.png",	Throwable:True,		Keys:[2, 3, 2, 2, 1, 3]},
+{Category:"Supply: backpack",		Name:"B-1 Supply Pack",						TTSName:"Supply Pack",					Icon:"Supply Pack.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 2]},
+{Category:"Supply: weapon",			Name:"FLAM-40 Flamethrower",				TTSName:"Flame thrower",				Icon:"Flamethrower.png",				Throwable:True,		Keys:[2, 3, 1, 2, 1]},
+{Category:"Supply: backpack",		Name:"AX/LAS-5 `"Guard Dog`" Rover",		TTSName:"Guard Dog Rover",				Icon:"Guard Dog Rover.png",				Throwable:True,		Keys:[2, 1, 3, 1, 4, 4]},
+{Category:"Supply: weapon",			Name:"GR-8 Recoilless Rifle",				TTSName:"Recoilless Rifle",				Icon:"Recoilless Rifle.png",			Throwable:True,		Keys:[2, 3, 4, 4, 3]},
+{Category:"Supply: backpack",		Name:"LIFT-850 Jump Pack",					TTSName:"Jump Pack",					Icon:"Jump Pack.png",					Throwable:True,		Keys:[2, 1, 1, 2, 1]},
+{Category:"Supply: weapon",			Name:"APW-1 Anti-Materiel Rifle",			TTSName:"Anti-Material Rifle",			Icon:"Anti-Material Rifle.png",			Throwable:True,		Keys:[2, 3, 4, 1, 2]},
+{Category:"Supply: weapon",			Name:"EAT-17 Expendable Anti-Tank",			TTSName:"Expendable Anti-Tank",			Icon:"Expendable Anti-Tank.png",		Throwable:True,		Keys:[2, 2, 3, 1, 4]},
+{Category:"Supply: weapon",			Name:"LAS-99 Quasar Cannon",				TTSName:"Quasar Cannon",				Icon:"Quasar Cannon.png",				Throwable:True,		Keys:[2, 2, 1, 3, 4]},
+{Category:"Supply: backpack",		Name:"AX/TX-13 `"Guard Dog`" Dog Breath",	TTSName:"Guard Dog Dog Breath",			Icon:"Guard Dog Dog Breath.png",		Throwable:True,		Keys:[2, 1, 3, 1, 4, 1]},
+{Category:"Supply: weapon",			Name:"TX-41 Sterilizer",					TTSName:"Sterilizer",					Icon:"Sterilizer.png",					Throwable:True,		Keys:[2, 3, 1, 2, 3]},
+{Category:"Supply: backpack",		Name:"SH-51 Directional Shield",			TTSName:"Directional Shield",			Icon:"Directional Shield.png",			Throwable:True,		Keys:[2, 1, 3, 4, 1, 1]},
+{Category:"Supply: weapon",			Name:"StA-X3 W.A.S.P. Launcher",			TTSName:"WASP Launcher",				Icon:"W.A.S.P. Launcher.png",			Throwable:True,		Keys:[2, 1, 3, 4, 1, 1]},
+{Category:"Defensive: mine",		Name:"Anti-Tank Mines",						TTSName:"Anti-Tank Mines",				Icon:"Anti-Tank Mines.png",				Throwable:True,		Keys:[2, 3, 1, 1]},
+{Category:"Defensive: other",		Name:"FX-12 Shield Generator Relay",		TTSName:"Shield Generator Relay",		Icon:"Shield Generator Relay.png",		Throwable:True,		Keys:[2, 2, 3, 4, 3, 4]},
+{Category:"Defensive: sentry",		Name:"A/M-23 EMS Mortar Sentry",			TTSName:"E M S Mortar Sentry",			Icon:"EMS Mortar Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 2, 4]},
+{Category:"Defensive: sentry",		Name:"A/MLS-4X Rocket Sentry",				TTSName:"Rocket Sentry",				Icon:"Rocket Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 4, 3]},
+{Category:"Defensive: sentry",		Name:"A/G-16 Gatling Sentry",				TTSName:"Gatling Sentry",				Icon:"Gatling Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 3]},
+{Category:"Defensive: sentry",		Name:"A/M-12 Mortar Sentry",				TTSName:"Mortar Sentry",				Icon:"Mortar Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 4, 2]},
+{Category:"Defensive: other",		Name:"A/ARC-3 Tesla Tower",					TTSName:"Tesla Tower",					Icon:"Tesla Tower.png",					Throwable:True,		Keys:[2, 1, 4, 1, 3, 4]},
+{Category:"Defensive: mine",		Name:"MD-6 Anti-Personnel Minefield",		TTSName:"Anti-Personnel Minefield",		Icon:"Anti-Personnel Minefield.png",	Throwable:True,		Keys:[2, 3, 1, 4]},
+{Category:"Defensive: sentry",		Name:"A/MG-43 Machine Gun Sentry",			TTSName:"Machine Gun Sentry",			Icon:"Machine Gun Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 4, 1]},
+{Category:"Defensive: sentry",		Name:"A/AC-8 Autocannon Sentry",			TTSName:"Autocannon Sentry",			Icon:"Autocannon Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 1, 3, 1]},
+{Category:"Defensive: emplacement",	Name:"E/MG-101 HMG Emplacement",			TTSName:"H M G Emplacement",			Icon:"HMG Emplacement.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 3]},
+{Category:"Defensive: mine",		Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]},
+{Category:"Defensive: sentry",		Name:"A/FLAM-40 Flame Sentry",				TTSName:"Flame Sentry",					Icon:"Flame Sentry.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]},
+{Category:"Defensive: emplacement",	Name:"E/AT-12 Anti-Tank Emplacement",		TTSName:"Anti-Tank Emplacement",		Icon:"Anti-Tank Emplacement.png",		Throwable:True,		Keys:[2, 1, 4, 2, 1, 1]}]
 
 ConstructGUI
 
@@ -209,7 +210,7 @@ ConstructGUI() {
 
 	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2.4")
+	HotkeyGUI.Add("Text", "xs", "Version 2.5")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
@@ -266,9 +267,15 @@ ConstructGUI() {
 			Case "No Stratagem":SelectedMenu := StratagemMenu
 			Case "Common":SelectedMenu := CommonSubmenu
 			Case "Mission":SelectedMenu := MissionSubmenu
-			Case "Offensive":SelectedMenu := OffensiveSubmenu
-			Case "Supply":SelectedMenu := SupplySubmenu
-			Case "Defensive":SelectedMenu := DefensiveSubmenu
+			Case "Offensive: eagle":SelectedMenu := OffensiveEagleSubmenu
+			Case "Offensive: orbital":SelectedMenu := OffensiveOrbitalSubmenu
+			Case "Supply: weapon":SelectedMenu := SupplyWeaponSubmenu
+			Case "Supply: backpack":SelectedMenu := SupplyBackpackSubmenu
+			Case "Supply: other":SelectedMenu := SupplyOtherSubmenu
+			Case "Defensive: mine":SelectedMenu := DefensiveMineSubmenu
+			Case "Defensive: sentry":SelectedMenu := DefensiveSentrySubmenu
+			Case "Defensive: emplacement":SelectedMenu := DefensiveEmplacementSubmenu
+			Case "Defensive: other":SelectedMenu := DefensiveOtherSubmenu
 		}
 		SelectedMenu.Check(StratagemMenuName(Stratagem))
 		ControlGetPos &x, &y,, &h, ButtonID
@@ -421,9 +428,15 @@ ConstructGUI() {
 	StratagemMenu := Menu()
 	CommonSubmenu := Menu()
 	MissionSubmenu := Menu()
-	OffensiveSubmenu := Menu()
-	SupplySubmenu := Menu()
-	DefensiveSubmenu := Menu()
+	OffensiveEagleSubmenu := Menu()
+	OffensiveOrbitalSubmenu := Menu()
+	SupplyWeaponSubmenu := Menu()
+	SupplyBackpackSubmenu := Menu()
+	SupplyOtherSubmenu := Menu()
+	DefensiveMineSubmenu := Menu()
+	DefensiveSentrySubmenu := Menu()
+	DefensiveEmplacementSubmenu := Menu()
+	DefensiveOtherSubmenu := Menu()
 	StratagemMenu.Add("Throw automatically", StratagemMenuHandler.Bind(0))
 	Try StratagemMenu.SetIcon("Throw automatically", "resources\Throw.png",,28)
 	StratagemMenu.Add
@@ -432,21 +445,39 @@ ConstructGUI() {
 			Case "No Stratagem":AddMenuItem(StratagemMenu, Stratagem)
 			Case "Common":AddMenuItem(CommonSubmenu, Stratagem)
 			Case "Mission":AddMenuItem(MissionSubmenu, Stratagem)
-			Case "Offensive": AddMenuItem(OffensiveSubmenu, Stratagem)
-			Case "Supply": AddMenuItem(SupplySubmenu, Stratagem)
-			Case "Defensive": AddMenuItem(DefensiveSubmenu, Stratagem)
+			Case "Offensive: eagle": AddMenuItem(OffensiveEagleSubmenu, Stratagem)
+			Case "Offensive: orbital": AddMenuItem(OffensiveOrbitalSubmenu, Stratagem)
+			Case "Supply: weapon": AddMenuItem(SupplyWeaponSubmenu, Stratagem)
+			Case "Supply: backpack": AddMenuItem(SupplyBackpackSubmenu, Stratagem)
+			Case "Supply: other": AddMenuItem(SupplyOtherSubmenu, Stratagem)
+			Case "Defensive: mine":AddMenuItem(DefensiveMineSubmenu, Stratagem)
+			Case "Defensive: sentry": AddMenuItem(DefensiveSentrySubmenu, Stratagem)
+			Case "Defensive: emplacement":AddMenuItem(DefensiveEmplacementSubmenu, Stratagem)
+			Case "Defensive: other": AddMenuItem(DefensiveOtherSubmenu, Stratagem)
 		}
 	}
 	StratagemMenu.Add("Common", CommonSubmenu)
 	Try StratagemMenu.SetIcon("Common", "resources\Reinforce.png",,28)
 	StratagemMenu.Add("Mission", MissionSubmenu)
 	Try StratagemMenu.SetIcon("Mission", "resources\SSSD Delivery.png",,28)
-	StratagemMenu.Add("Offensive", OffensiveSubmenu)
-	Try StratagemMenu.SetIcon("Offensive", "resources\Eagle 500kg Bomb.png",,28)
-	StratagemMenu.Add("Supply", SupplySubmenu)
-	Try StratagemMenu.SetIcon("Supply", "resources\Commando.png",,28)
-	StratagemMenu.Add("Defensive", DefensiveSubmenu)
-	Try StratagemMenu.SetIcon("Defensive", "resources\Anti-Tank Mines.png",,28)
+	StratagemMenu.Add("Offensive: eagle", OffensiveEagleSubmenu)
+	Try StratagemMenu.SetIcon("Offensive: eagle", "resources\Eagle 500kg Bomb.png",,28)
+	StratagemMenu.Add("Offensive: orbital", OffensiveOrbitalSubmenu)
+	Try StratagemMenu.SetIcon("Offensive: orbital", "resources\Orbital Gatling Barrage.png",,28)
+	StratagemMenu.Add("Supply: weapon", SupplyWeaponSubmenu)
+	Try StratagemMenu.SetIcon("Supply: weapon", "resources\Commando.png",,28)
+	StratagemMenu.Add("Supply: backpack", SupplyBackpackSubmenu)
+	Try StratagemMenu.SetIcon("Supply: backpack", "resources\Shield Generator Pack.png",,28)
+	StratagemMenu.Add("Supply: other", SupplyOtherSubmenu)
+	Try StratagemMenu.SetIcon("Supply: other", "resources\Emancipator Exosuit.png",,28)
+	StratagemMenu.Add("Defensive: mine", DefensiveMineSubmenu)
+	Try StratagemMenu.SetIcon("Defensive: mine", "resources\Anti-Tank Mines.png",,28)
+	StratagemMenu.Add("Defensive: sentry", DefensiveSentrySubmenu)
+	Try StratagemMenu.SetIcon("Defensive: sentry", "resources\EMS Mortar Sentry.png",,28)
+	StratagemMenu.Add("Defensive: emplacement", DefensiveEmplacementSubmenu)
+	Try StratagemMenu.SetIcon("Defensive: emplacement", "resources\HMG Emplacement.png",,28)
+	StratagemMenu.Add("Defensive: other", DefensiveOtherSubmenu)
+	Try StratagemMenu.SetIcon("Defensive: other", "resources\Anti-Tank Mines.png",,28)
 	StratagemMenu.SetColor("BABABA", true)
 
 	AddMenuItem(Submenu, Stratagem) {
