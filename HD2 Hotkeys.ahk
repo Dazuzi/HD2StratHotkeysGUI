@@ -89,7 +89,7 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Defensive: emplacement",	Name:"E/MG-101 HMG Emplacement",			TTSName:"H M G Emplacement",			Icon:"HMG Emplacement.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 3]},
 {Category:"Defensive: mine",		Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]},
 {Category:"Defensive: sentry",		Name:"A/FLAM-40 Flame Sentry",				TTSName:"Flame Sentry",					Icon:"Flame Sentry.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]},
-{Category:"Defensive: emplacement",	Name:"E/AT-12 Anti-Tank Emplacement",		TTSName:"Anti-Tank Emplacement",		Icon:"Anti-Tank Emplacement.png",		Throwable:True,		Keys:[2, 1, 4, 2, 1, 1]}]
+{Category:"Defensive: emplacement",	Name:"E/AT-12 Anti-Tank Emplacement",		TTSName:"Anti-Tank Emplacement",		Icon:"Anti-Tank Emplacement.png",		Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]}]
 
 ConstructGUI
 
@@ -382,9 +382,14 @@ ConstructGUI() {
 	AddProfileClick(*) {
 		NewProfile := Object
 		NewProfile.Value := "MyNewProfile"
+		NewProfileNumber := 0
+		While ProfileExists(NewProfile.Value) > 0 {
+			NewProfileNumber++
+			NewProfile.Value := "MyNewProfile" NewProfileNumber
+		}
 		TryAgain:
 		NewProfile := InputBox("Enter an alphanumeric name for a new profile:", "HELLDIVERS™ 2 Stratagem Hotkeys", "h100", NewProfile.Value)
-		If (NewProfile.Result = "Cancel")
+		If NewProfile.Result = "Cancel"
 			Return
 		Else If StrLen(NewProfile.Value) > 64 {
 			If MsgBox("The profile name can be a maximum of 64 characters long, please try again.", "HELLDIVERS™ 2 Stratagem Hotkeys", "RC IconX 8192") = "Retry"
