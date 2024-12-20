@@ -89,7 +89,8 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Defensive: emplacement",	Name:"E/MG-101 HMG Emplacement",			TTSName:"H M G Emplacement",			Icon:"HMG Emplacement.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 3]},
 {Category:"Defensive: mine",		Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]},
 {Category:"Defensive: sentry",		Name:"A/FLAM-40 Flame Sentry",				TTSName:"Flame Sentry",					Icon:"Flame Sentry.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]},
-{Category:"Defensive: emplacement",	Name:"E/AT-12 Anti-Tank Emplacement",		TTSName:"Anti-Tank Emplacement",		Icon:"Anti-Tank Emplacement.png",		Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]}]
+{Category:"Defensive: emplacement",	Name:"E/AT-12 Anti-Tank Emplacement",		TTSName:"Anti-Tank Emplacement",		Icon:"Anti-Tank Emplacement.png",		Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]},
+{Category:"Supply: other",			Name:"M-102 Fast Recon Vehicle",			TTSName:"Fast Recon Vehicle",			Icon:"Fast Recon Vehicle.png",			Throwable:True,		Keys:[3, 2, 4, 2, 4, 2, 1]}]
 
 ConstructGUI
 
