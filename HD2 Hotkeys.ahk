@@ -1,13 +1,13 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2.6
+Version 2.7
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 ;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
 ;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-;@Ahk2Exe-SetFileVersion 2.6.0.0
+;@Ahk2Exe-SetFileVersion 2.7.0.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
@@ -66,17 +66,18 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Supply: weapon",			Name:"GL-21 Grenade Launcher",				TTSName:"Grenade Launcher",				Icon:"Grenade Launcher.png",			Throwable:True,		Keys:[2, 3, 1, 3, 2]},
 {Category:"Supply: weapon",			Name:"MG-43 Machine Gun",					TTSName:"Machine Gun",					Icon:"Machine Gun.png",					Throwable:True,		Keys:[2, 3, 2, 1, 4]},
 {Category:"Supply: backpack",		Name:"SH-20 Ballistic Shield Backpack",		TTSName:"Ballistic Shield Backpack",	Icon:"Ballistic Shield Backpack.png",	Throwable:True,		Keys:[2, 3, 2, 2, 1, 3]},
+{Category:"Supply: weapon",			Name:"StA-X3 W.A.S.P. Launcher",			TTSName:"WASP Launcher",				Icon:"W.A.S.P. Launcher.png",			Throwable:True,		Keys:[2, 2, 1, 2, 4]},
 {Category:"Supply: backpack",		Name:"B-1 Supply Pack",						TTSName:"Supply Pack",					Icon:"Supply Pack.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 2]},
 {Category:"Supply: other",			Name:"M-102 Fast Recon Vehicle",			TTSName:"Fast Recon Vehicle",			Icon:"Fast Recon Vehicle.png",			Throwable:True,		Keys:[3, 2, 4, 2, 4, 2, 1]},
 {Category:"Supply: weapon",			Name:"FLAM-40 Flamethrower",				TTSName:"Flame thrower",				Icon:"Flamethrower.png",				Throwable:True,		Keys:[2, 3, 1, 2, 1]},
 {Category:"Supply: backpack",		Name:"AX/LAS-5 `"Guard Dog`" Rover",		TTSName:"Guard Dog Rover",				Icon:"Guard Dog Rover.png",				Throwable:True,		Keys:[2, 1, 3, 1, 4, 4]},
+{Category:"Supply: backpack",		Name:"B-100 Portable Hellbomb",				TTSName:"Portable Hellbomb",			Icon:"Portable Hellbomb.png",			Throwable:True,		Keys:[2, 4, 1, 1, 1]},
 {Category:"Supply: weapon",			Name:"GR-8 Recoilless Rifle",				TTSName:"Recoilless Rifle",				Icon:"Recoilless Rifle.png",			Throwable:True,		Keys:[2, 3, 4, 4, 3]},
 {Category:"Supply: backpack",		Name:"LIFT-850 Jump Pack",					TTSName:"Jump Pack",					Icon:"Jump Pack.png",					Throwable:True,		Keys:[2, 1, 1, 2, 1]},
 {Category:"Supply: weapon",			Name:"APW-1 Anti-Materiel Rifle",			TTSName:"Anti-Material Rifle",			Icon:"Anti-Material Rifle.png",			Throwable:True,		Keys:[2, 3, 4, 1, 2]},
 {Category:"Supply: backpack",		Name:"AX/TX-13 `"Guard Dog`" Dog Breath",	TTSName:"Guard Dog Dog Breath",			Icon:"Guard Dog Dog Breath.png",		Throwable:True,		Keys:[2, 1, 3, 1, 4, 1]},
 {Category:"Supply: weapon",			Name:"EAT-17 Expendable Anti-Tank",			TTSName:"Expendable Anti-Tank",			Icon:"Expendable Anti-Tank.png",		Throwable:True,		Keys:[2, 2, 3, 1, 4]},
 {Category:"Supply: weapon",			Name:"LAS-99 Quasar Cannon",				TTSName:"Quasar Cannon",				Icon:"Quasar Cannon.png",				Throwable:True,		Keys:[2, 2, 1, 3, 4]},
-{Category:"Supply: weapon",			Name:"StA-X3 W.A.S.P. Launcher",			TTSName:"WASP Launcher",				Icon:"W.A.S.P. Launcher.png",			Throwable:True,		Keys:[2, 2, 1, 2, 4]},
 {Category:"Defensive: sentry",		Name:"A/FLAM-40 Flame Sentry",				TTSName:"Flame Sentry",					Icon:"Flame Sentry.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]},
 {Category:"Defensive: mine",		Name:"Anti-Tank Mines",						TTSName:"Anti-Tank Mines",				Icon:"Anti-Tank Mines.png",				Throwable:True,		Keys:[2, 3, 1, 1]},
 {Category:"Defensive: emplacement",	Name:"E/AT-12 Anti-Tank Emplacement",		TTSName:"Anti-Tank Emplacement",		Icon:"Anti-Tank Emplacement.png",		Throwable:True,		Keys:[2, 1, 3, 4, 4, 4]},
@@ -90,7 +91,8 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Defensive: sentry",		Name:"A/MG-43 Machine Gun Sentry",			TTSName:"Machine Gun Sentry",			Icon:"Machine Gun Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 4, 1]},
 {Category:"Defensive: sentry",		Name:"A/AC-8 Autocannon Sentry",			TTSName:"Autocannon Sentry",			Icon:"Autocannon Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 1, 3, 1]},
 {Category:"Defensive: mine",		Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]},
-{Category:"Defensive: emplacement",	Name:"E/MG-101 HMG Emplacement",			TTSName:"H M G Emplacement",			Icon:"HMG Emplacement.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 3]}
+{Category:"Defensive: emplacement",	Name:"E/MG-101 HMG Emplacement",			TTSName:"H M G Emplacement",			Icon:"HMG Emplacement.png",				Throwable:True,		Keys:[2, 1, 3, 4, 4, 3]},
+{Category:"Defensive: mine",		Name:"MD-8 Gas Mines",						TTSName:"Gas Mines",					Icon:"Gas Mines.png",					Throwable:True,		Keys:[2, 3, 3, 4]}
 ]
 
 ConstructGUI
@@ -212,7 +214,7 @@ ConstructGUI() {
 
 	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2.6")
+	HotkeyGUI.Add("Text", "xs", "Version 2.7")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
@@ -310,7 +312,7 @@ ConstructGUI() {
 				MenuIDs[2].SetFont("")
 				If AutoThrowTooltips.Value {
 					ControlGetPos &x, &y,, &h, MenuIDs[2]
-					If (Index > 1)
+					If Index > 1
 						ToolTip(StratagemArray[Index].Name " cannot be thrown, autothrow disabled.", x, y - 25)
 					Else
 						ToolTip("Autothrow disabled.", x, y - 25)
