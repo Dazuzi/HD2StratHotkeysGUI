@@ -1,13 +1,13 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2.8
+Version 2025-06-03
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 ;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
 ;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-;@Ahk2Exe-SetFileVersion 2.8.0.0
+;@Ahk2Exe-SetFileVersion 2025.06.03.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
@@ -48,6 +48,7 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Offensive: eagle",		Name:"Eagle Cluster Bomb",					TTSName:"Eagle Cluster Bomb",			Icon:"Eagle Cluster Bomb.png",			Throwable:True,		Keys:[1, 4, 2, 2, 4]},
 {Category:"Offensive: eagle",		Name:"Eagle Napalm Airstrike",				TTSName:"Eagle Napalm Airstrike",		Icon:"Eagle Napalm Airstrike.png",		Throwable:True,		Keys:[1, 4, 2, 1]},
 {Category:"Offensive: eagle",		Name:"Eagle Smoke Strike",					TTSName:"Eagle Smoke Strike",			Icon:"Eagle Smoke Strike.png",			Throwable:True,		Keys:[1, 4, 1, 2]},
+{Category:"Supply: weapon",			Name:"CQC-1 One True Flag",					TTSName:"One True Flag",				Icon:"One True Flag.png",				Throwable:True,		Keys:[2, 3, 4, 4, 1]},
 {Category:"Supply: weapon",			Name:"MG-43 Machine Gun",					TTSName:"Machine Gun",					Icon:"Machine Gun.png",					Throwable:True,		Keys:[2, 3, 2, 1, 4]},
 {Category:"Supply: weapon",			Name:"M-105 Stalwart",						TTSName:"Stalwart",						Icon:"Stalwart.png",					Throwable:True,		Keys:[2, 3, 2, 1, 1, 3]},
 {Category:"Supply: weapon",			Name:"MG-206 Heavy Machine Gun",			TTSName:"Heavy Machine Gun",			Icon:"Heavy Machine Gun.png",			Throwable:True,		Keys:[2, 3, 1, 2, 2]},
@@ -216,7 +217,7 @@ ConstructGUI() {
 
 	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2.8")
+	HotkeyGUI.Add("Text", "xs", "Version 2025-06-03")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
