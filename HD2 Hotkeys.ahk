@@ -1,19 +1,19 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2025-06-03
+Version 2025-06-13
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 ;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
 ;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-;@Ahk2Exe-SetFileVersion 2025.06.03.0
+;@Ahk2Exe-SetFileVersion 2025.06.13.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
 #NoTrayIcon
 
-StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Stratagem.png", Throwable:False, Keys:[]},															;1 = Up, 2 = Down, 3 = Left & 4 = Right
+StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Stratagem.png", Throwable:False, Keys:[]},																;1 = Up, 2 = Down, 3 = Left & 4 = Right
 {Category:"Common",					Name:"Reinforce",							TTSName:"Reinforce",					Icon:"Reinforce.png",					Throwable:True,		Keys:[1, 2, 4, 3, 1]},
 {Category:"Common",					Name:"SoS Beacon",							TTSName:"S O S Beacon",					Icon:"SoS Beacon.png",					Throwable:True,		Keys:[1, 2, 4, 1]},
 {Category:"Common",					Name:"Resupply",							TTSName:"Resupply",						Icon:"Resupply.png",					Throwable:True,		Keys:[2, 2, 1, 4]},
@@ -95,7 +95,9 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Defensive: mine",		Name:"Anti-Tank Mines",						TTSName:"Anti-Tank Mines",				Icon:"Anti-Tank Mines.png",				Throwable:True,		Keys:[2, 3, 1, 1]},
 {Category:"Defensive: mine",		Name:"MD-8 Gas Mines",						TTSName:"Gas Mines",					Icon:"Gas Mines.png",					Throwable:True,		Keys:[2, 3, 3, 4]},
 {Category:"Defensive: mine",		Name:"MD-6 Anti-Personnel Minefield",		TTSName:"Anti-Personnel Minefield",		Icon:"Anti-Personnel Minefield.png",	Throwable:True,		Keys:[2, 3, 1, 4]},
-{Category:"Defensive: mine",		Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]}
+{Category:"Defensive: mine",		Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]},
+{Category:"Supply: backpack",		Name:"`"Guard Dog`" K-9",					TTSName:"`"Guard Dog`" K-9",			Icon:"Guard Dog K-9.png",				Throwable:True,		Keys:[2, 1, 3, 1, 4, 4]},
+{Category:"Supply: weapon",			Name:"GL-52 De-Escalator",					TTSName:"De-Escalator",					Icon:"De-Escalator.png",				Throwable:True,		Keys:[3, 4, 1, 3, 4]}
 ]
 
 ConstructGUI
@@ -217,7 +219,7 @@ ConstructGUI() {
 
 	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2025-06-03")
+	HotkeyGUI.Add("Text", "xs", "Version 2025-06-13")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
