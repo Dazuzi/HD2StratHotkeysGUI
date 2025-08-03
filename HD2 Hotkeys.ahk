@@ -1,13 +1,13 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2025-06-13
+Version 2025-08-03
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 ;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
 ;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-;@Ahk2Exe-SetFileVersion 2025.06.13.0
+;@Ahk2Exe-SetFileVersion 2025.08.03.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
@@ -97,7 +97,10 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Defensive: mine",		Name:"MD-6 Anti-Personnel Minefield",		TTSName:"Anti-Personnel Minefield",		Icon:"Anti-Personnel Minefield.png",	Throwable:True,		Keys:[2, 3, 1, 4]},
 {Category:"Defensive: mine",		Name:"MD-I4 Incendiary Mines",				TTSName:"Incendiary Mines",				Icon:"Incendiary Mines.png",			Throwable:True,		Keys:[2, 3, 3, 2]},
 {Category:"Supply: backpack",		Name:"`"Guard Dog`" K-9",					TTSName:"`"Guard Dog`" K-9",			Icon:"Guard Dog K-9.png",				Throwable:True,		Keys:[2, 1, 3, 1, 4, 4]},
-{Category:"Supply: weapon",			Name:"GL-52 De-Escalator",					TTSName:"De-Escalator",					Icon:"De-Escalator.png",				Throwable:True,		Keys:[3, 4, 1, 3, 4]}
+{Category:"Supply: weapon",			Name:"GL-52 De-Escalator",					TTSName:"De-Escalator",					Icon:"De-Escalator.png",				Throwable:True,		Keys:[3, 4, 1, 3, 4]},
+{Category:"Defensive: sentry",		Name:"A/LAS-98 Laser Sentry",				TTSName:"Laser Sentry",					Icon:"Laser Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 2, 1, 4]},
+{Category:"Supply: backpack",		Name:"LIFT-182 Warp Pack",					TTSName:"Warp Pack",					Icon:"Warp Pack.png",					Throwable:True,		Keys:[2, 3, 4, 2, 3, 4]},
+{Category:"Supply: weapon",			Name:"PLAS-45 Epoch",						TTSName:"Epoch",						Icon:"Epoch.png",						Throwable:True,		Keys:[2, 3, 1, 3, 4]}
 ]
 
 ConstructGUI
@@ -219,7 +222,7 @@ ConstructGUI() {
 
 	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2025-06-13")
+	HotkeyGUI.Add("Text", "xs", "Version 2025-08-03")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
