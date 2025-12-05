@@ -1,6 +1,6 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2025-08-03
+Version 2025-12-05
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
@@ -100,7 +100,13 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Supply: weapon",			Name:"GL-52 De-Escalator",					TTSName:"De-Escalator",					Icon:"De-Escalator.png",				Throwable:True,		Keys:[3, 4, 1, 3, 4]},
 {Category:"Defensive: sentry",		Name:"A/LAS-98 Laser Sentry",				TTSName:"Laser Sentry",					Icon:"Laser Sentry.png",				Throwable:True,		Keys:[2, 1, 4, 2, 1, 4]},
 {Category:"Supply: backpack",		Name:"LIFT-182 Warp Pack",					TTSName:"Warp Pack",					Icon:"Warp Pack.png",					Throwable:True,		Keys:[2, 3, 4, 2, 3, 4]},
-{Category:"Supply: weapon",			Name:"PLAS-45 Epoch",						TTSName:"Epoch",						Icon:"Epoch.png",						Throwable:True,		Keys:[2, 3, 1, 3, 4]}
+{Category:"Supply: weapon",			Name:"PLAS-45 Epoch",						TTSName:"Epoch",						Icon:"Epoch.png",						Throwable:True,		Keys:[2, 3, 1, 3, 4]},
+{Category:"Supply: weapon",			Name:"MS-11 Solo Silo",						TTSName:"Solo Silo",					Icon:"Solo Silo.png",					Throwable:True,		Keys:[2, 1, 4, 2, 2]},
+{Category:"Supply: weapon",			Name:"EAT-700 Expendable Napalm",			TTSName:"Expendable Napalm",			Icon:"Expendable Napalm.png",			Throwable:True,		Keys:[2, 2, 3, 1, 3]},
+{Category:"Supply: weapon",			Name:"S-11 Speargun",						TTSName:"Speargun",						Icon:"Speargun.png",					Throwable:True,		Keys:[2, 4, 2, 3, 1, 4]},
+{Category:"Supply: weapon",			Name:"M-1000 Maxigun",						TTSName:"Maxigun",						Icon:"Maxigun.png",						Throwable:True,		Keys:[2, 3, 4, 2, 1, 1]},
+{Category:"Supply: weapon",			Name:"CQC-9 Defoliation Tool",				TTSName:"Defoliation Tool",				Icon:"Defoliation Tool.png",			Throwable:True,		Keys:[2, 3, 4, 4, 2]},
+{Category:"Supply: backpack",		Name:"`"Guard Dog`" Hot Dog",				TTSName:"Hot Dog",						Icon:"Hot Dog.png",						Throwable:True,		Keys:[2, 1, 3, 1, 3, 3]}
 ]
 
 ConstructGUI
@@ -222,7 +228,7 @@ ConstructGUI() {
 
 	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2025-08-03")
+	HotkeyGUI.Add("Text", "xs", "Version 2025-12-05")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
