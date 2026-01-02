@@ -1,13 +1,13 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2025-12-05
+Version 2026-01-02
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 ;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
 ;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-;@Ahk2Exe-SetFileVersion 2025.08.03.0
+;@Ahk2Exe-SetFileVersion 2026.01.02.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
@@ -109,6 +109,10 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Supply: backpack",		Name:"`"Guard Dog`" Hot Dog",				TTSName:"Hot Dog",						Icon:"Hot Dog.png",						Throwable:True,		Keys:[2, 1, 3, 1, 3, 3]}
 ]
 
+FKeyConfigs := Array() 
+Loop 12
+	FKeyConfigs.Push(Object())
+
 ConstructGUI
 
 ConstructGUI() {
@@ -118,7 +122,7 @@ ConstructGUI() {
 	HotkeyGUI.BackColor := "171717"
 	HotkeyGUI.SetFont("cBABABA")
 	Try HotkeyGUI.Add("Picture", "w776 h-1", "resources\HD2 Banner.png")
-	Tab := HotkeyGUI.Add("Tab3", "Background383333 cE1CB00", [" Hotkeys ", " Settings ", " About "])
+	Tab := HotkeyGUI.Add("Tab3", "Background383333 cE1CB00", [" Stratagems ", " F-keys ", " Settings ", " About "])
 	Tab.SetFont("s10")
 
 	Tab.UseTab(1)
@@ -179,6 +183,75 @@ ConstructGUI() {
 	ButtonArray[17].OnEvent("Click", ShowStratagemMenu.Bind(17))
 
 	Tab.UseTab(2)
+	HotkeyGUI.Add("Text", "Section w0 h0")
+	HotkeyGUI.SetFont("bold")
+	HotkeyGUI.Add("Text", "Section xs+5 w45", "Hotkey")
+	HotkeyGUI.Add("Text", "ys w80", "Font")
+	HotkeyGUI.Add("Text", "ys w45", "Size")
+	HotkeyGUI.Add("Text", "ys w60", "Opacity")
+	HotkeyGUI.Add("Text", "ys w120", "Colour")
+	HotkeyGUI.Add("Text", "ys w22")
+	HotkeyGUI.Add("Text", "ys w200", "Custom Text")
+	HotkeyGUI.SetFont("norm")
+	ColourNames := ["None", "Player Colour", "Helldivers Blue", "Helldivers Green", "Helldivers Orange", "Helldivers Pink", "Aquamarine", "Beige", "Black", "Blue", "Brown", "Chocolate", "Coral", "Crimson", "Cyan", "DarkOrange", "DarkRed", "DimGray", "DodgerBlue", "FireBrick", "Gainsboro", "Gold", "Gray", "Green", "Honeydew", "Indigo", "Ivory", "Khaki", "Lavender", "LightGray", "Lime", "Linen", "Magenta", "Maroon", "MidnightBlue", "MintCream", "MistyRose", "Navy", "OldLace", "Olive", "Orange", "Orchid", "Pink", "Plum", "Purple", "Red", "RoyalBlue", "Salmon", "Seashell", "Sienna", "Silver", "SkyBlue", "SlateGray", "Snow", "SteelBlue", "Tan", "Teal", "Tomato", "Turquoise", "Violet", "Wheat", "White", "Yellow"]
+	ColourHex := ["None", "Player", "81ACFF", "6ED755", "FF9D44", "F789FF", "7FFFD4", "F5F5DC", "000000", "0000FF", "A52A2A", "D2691E", "FF7F50", "DC143C", "00FFFF", "FF8C00", "8B0000", "696969", "1E90FF", "B22222", "DCDCDC", "FFD700", "808080", "008000", "F0FFF0", "4B0082", "FFFFF0", "F0E68C", "E6E6FA", "D3D3D3", "00FF00", "FAF0E6", "FF00FF", "800000", "191970", "F5FFFA", "FFE4E1", "000080", "FDF5E6", "808000", "FFA500", "DA70D6", "FFC0CB", "DDA0DD", "800080", "FF0000", "4169E1", "FA8072", "FFF5EE", "A0522D", "C0C0C0", "87CEEB", "708090", "FFFAFA", "4682B4", "D2B48C", "008080", "FF6347", "40E0D0", "EE82EE", "F5DEB3", "FFFFFF", "FFFF00"]
+	SizeList := [05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 99]
+	FontList := ["Normal", "Bold", "Symbols", "Thin", "Illuminate"]
+	AlphaList := ["100%", "90%", "80%", "70%", "60%", "50%", "40%", "30%", "20%", "10%", "0%"]
+	AddFKeyRow(KeyName) {
+		Index := Integer(SubStr(KeyName, 2))
+		SavedStr := IniRead("HD2 Config.ini", "FKeys", KeyName, "0 1 20 100 Normal")
+		Cfg := StrSplit(SavedStr, " ",, 6)
+		CB := HotkeyGUI.Add("CheckBox", "xs y+5 Section w45 cBABABA", KeyName)
+		CB.Value := (Cfg.Has(1) ? Cfg[1] : 0)
+		FontDDL := HotkeyGUI.Add("DropDownList", "ys yp w80 Background4B4B4B cBABABA", FontList)
+		FontDDL.Text := (Cfg.Has(5) ? Cfg[5] : "Normal")
+		SizeDDL := HotkeyGUI.Add("DropDownList", "ys yp w45 Background4B4B4B cBABABA", SizeList)
+		SizeDDL.Text := (Cfg.Has(3) ? Cfg[3] : "20")
+		AlphaDDL := HotkeyGUI.Add("DropDownList", "ys yp w60 Background4B4B4B cBABABA", AlphaList)
+		AlphaDDL.Text := (Cfg.Has(4) ? Cfg[4] "%" : "100%")
+		ColourDDL := HotkeyGUI.Add("DropDownList", "ys yp w120 Background4B4B4B cBABABA", ColourNames)
+		ColourDDL.Choose(Integer(Cfg.Has(2) ? Cfg[2] : 1))
+		InitialHex := ColourHex[ColourDDL.Value]
+		BgOpt := (ColourDDL.Value > 2) ? "Background" InitialHex : "Background383333"
+		Indicator := HotkeyGUI.Add("Text", "ys yp+1 w22 h22 +Border " BgOpt)
+		TextEdit := HotkeyGUI.Add("Edit", "ys yp w300 Background4B4B4B cBABABA")
+		TextEdit.Value := (Cfg.Has(6) ? Cfg[6] : "")
+		UpdateConfig := (*) => (
+			FKeyConfigs[Index] := {
+				Enabled: CB.Value,
+				Hex: ColourHex[ColourDDL.Value],
+				Size: Integer(SizeDDL.Text),
+				Opacity: Integer(StrReplace(AlphaDDL.Text, "%")),
+				Font: FontDDL.Text,
+				Text: TextEdit.Value
+			}
+		)
+		UpdateConfig()
+		SaveFn := (*) => (
+			CustomText := TextEdit.Value,
+			IniWrite(CB.Value " " ColourDDL.Value " " SizeDDL.Text " " StrReplace(AlphaDDL.Text, "%") " " FontDDL.Text (CustomText != "" ? " " CustomText : ""), "HD2 Config.ini", "FKeys", KeyName),
+			UpdateConfig()
+		)
+		CB.OnEvent("Click", SaveFn)
+		SizeDDL.OnEvent("Change", SaveFn)
+		AlphaDDL.OnEvent("Change", SaveFn)
+		FontDDL.OnEvent("Change", SaveFn)
+		TextEdit.OnEvent("Change", SaveFn)
+		ColourDDL.OnEvent("Change", (Ctrl, *) => (
+			NewHex := ColourHex[Ctrl.Value],
+			(Ctrl.Value > 2) ? Indicator.Opt("Background" NewHex) : Indicator.Opt("Background383333"),
+			Indicator.Redraw(),
+			SaveFn()
+		))
+	}
+	Loop 12
+		AddFKeyRow("F" A_Index)
+	HotkeyGUI.Add("Text", "xs y+10", "These hotkeys allow you to manipulate the chat message formatting in Helldivers 2 chat.")
+	HotkeyGUI.Add("Text", "xs", "1. Enable a hotkey 2. Activate chat in Helldivers (Enter) 3. Press hotkey 4. Type your message")
+	HotkeyGUI.Add("Text", "xs", "Note: opacity only works when a colour, other than `"Player Colour`", is selected.")
+
+	Tab.UseTab(3)
 	HotkeyGUI.Add("Text", "Section y+10", "Minimum press/click delay")
 	HotkeyGUI.Add("Edit", "ys yp-3 Limit3 Number w75 Background4B4B4B cBABABA").OnEvent("Change", ChangeSetting.Bind("MinimumDelay"))
 	Global MinimumDelay := HotkeyGUI.Add("UpDown", "vMinUpDown Range0-999", IniRead("HD2 Config.ini", "Settings", "MinimumDelay", "40"))
@@ -215,20 +288,23 @@ ConstructGUI() {
 		Global TextToSpeech := HotkeyGUI.Add("CheckBox", "vTextToSpeech Section xs y+30", "Read out loud activated stratagem's name")
 		TextToSpeech.OnEvent("Click", ChangeSetting.Bind("TextToSpeech"))
 		TextToSpeech.Value := IniRead("HD2 Config.ini", "Settings", "TextToSpeech", 0)
+		Global ProfileTTS := HotkeyGUI.Add("CheckBox", "vProfileTTS Section xs", "Read out loud activated profiles's name when activated with a hotkey (CTRL+0-9)")
+		ProfileTTS.OnEvent("Click", ChangeSetting.Bind("ProfileTTS"))
+		ProfileTTS.Value := IniRead("HD2 Config.ini", "Settings", "ProfileTTS", 0)
 		HotkeyGUI.Add("Text", "Section y+15 xp+18", "Voice")
 		Voice := HotkeyGUI.Add("DropDownList", "ys yp-4 w300 Background4B4B4B cBABABA", Voices)
 		Voice.OnEvent("Change", ChangeVoice.Bind("Voice"))
 		Voice.Value := IniRead("HD2 Config.ini", "Settings", "Voice", 1)
-		If !TextToSpeech.Value
+		If !TextToSpeech.Value and !ProfileTTS.Value
 			Voice.Enabled := False
 	}
 	AutoThrowTooltips := HotkeyGUI.Add("CheckBox", "vAutoThrowTooltips Section xm+12 y+30", "Show `"Throw Automatically`" help tips")
 	AutoThrowTooltips.OnEvent("Click", ChangeSetting.Bind("AutoThrowTooltips"))
 	AutoThrowTooltips.Value := IniRead("HD2 Config.ini", "Settings", "AutoThrowTooltips", 1)
 
-	Tab.UseTab(3)
+	Tab.UseTab(4)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2025-12-05")
+	HotkeyGUI.Add("Text", "xs", "Version 2026-01-02")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
@@ -241,7 +317,7 @@ ConstructGUI() {
 		}
 	}
 	HotkeyGUI.Add("Text", "Section y+11", "Profile")
-	ActiveProfile := HotkeyGUI.Add("DropDownList", "ys w180 yp-4 Background4B4B4B cBABABA", ProfileArray)
+	Global ActiveProfile := HotkeyGUI.Add("DropDownList", "ys w180 yp-4 Background4B4B4B cBABABA", ProfileArray)
 	ActiveProfile.OnEvent("Change", LoadProfile)
 	ActiveProfile.Focus
 	Try ActiveProfile.Text := IniRead("HD2 Config.ini", "Settings", "ActiveProfile", "Default")
@@ -343,7 +419,7 @@ ConstructGUI() {
 
 	ChangeSetting(SettingName, ControlID, *) {
 		IniWrite ControlID.Value, "HD2 Config.ini", "Settings", SettingName
-		If TextToSpeech.Value
+		If TextToSpeech.Value or ProfileTTS.Value
 			Voice.Enabled := True
 		Else
 			Voice.Enabled := False
@@ -360,7 +436,7 @@ ConstructGUI() {
 	ChangeVoice(SettingName, ControlID, *) {
 		IniWrite ControlID.Value, "HD2 Config.ini", "Settings", SettingName
 		SAPI.Voice := SAPI.GetVoices().Item(ControlID.Value - 1)
-		If TextToSpeech.Value
+		If TextToSpeech.Value or ProfileTTS.Value
 			SAPI.Speak(ControlID.Text, 1)
 	}
 
@@ -371,6 +447,7 @@ ConstructGUI() {
 		IniWrite LTrim(Stratagems), "HD2 Config.ini", "Profiles", ActiveProfile.Text
 	}
 
+	Global LoadProfileFunction := LoadProfile 
 	LoadProfile(*) {
 		If ActiveProfile.Text = "Default"
 			DeleteProfile.Enabled := False
@@ -624,5 +701,113 @@ PlayKeys(HotkeyID) {
 		MouseClick "Left",,,,, "Down"
 		Sleep Random(MinDelay, MaxDelay)
 		MouseClick "Left",,,,, "Up"
+	}
+}
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[1].Enabled
+F1::ExecuteFKey(1)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[2].Enabled
+F2::ExecuteFKey(2)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[3].Enabled
+F3::ExecuteFKey(3)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[4].Enabled
+F4::ExecuteFKey(4)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[5].Enabled
+F5::ExecuteFKey(5)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[6].Enabled
+F6::ExecuteFKey(6)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[7].Enabled
+F7::ExecuteFKey(7)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[8].Enabled
+F8::ExecuteFKey(8)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[9].Enabled
+F9::ExecuteFKey(9)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[10].Enabled
+F10::ExecuteFKey(10)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[11].Enabled
+F11::ExecuteFKey(11)
+#HotIf
+
+#HotIf WinActive("HELLDIVERS™ 2") && FKeyConfigs[12].Enabled
+F12::ExecuteFKey(12)
+#HotIf
+
+ExecuteFKey(FKey) {
+	Size := FKeyConfigs[FKey].Size
+	MarkupTags := (Size != 20 ? "<s=" Size ">" : "")
+	Hex := FKeyConfigs[FKey].Hex
+	If (Hex == "Player")
+		MarkupTags := MarkupTags "<i=1>"
+	Else If (Hex != "None") {
+		Opacity := FKeyConfigs[FKey].Opacity
+		Opacity := Format("{:02X}", Round((Opacity != 100 ? Opacity : "100") * 255 / 100))
+		MarkupTags := MarkupTags "<c=" Opacity Hex ">"
+	}
+	MarkupTags := StrReplace(StrReplace(StrReplace(StrReplace(StrReplace(MarkupTags FKeyConfigs[FKey].Font, "Bold", "<f=00>"), "Symbols", "<f=03>"), "Thin", "<f=18>"), "Illuminate", "<f=32>"), "Normal")
+	CustomText := FKeyConfigs[FKey].Text
+	If (CustomText != "")
+		MarkupTags := MarkupTags "{Text}" CustomText
+	SendEvent(MarkupTags)
+}
+
+#HotIf WinActive("HELLDIVERS™ 2")
+^1::ActivateProfile(1)
+^2::ActivateProfile(2)
+^3::ActivateProfile(3)
+^4::ActivateProfile(4)
+^5::ActivateProfile(5)
+^6::ActivateProfile(6)
+^7::ActivateProfile(7)
+^8::ActivateProfile(8)
+^9::ActivateProfile(9)
+^0::ActivateProfile(10)
+#HotIf
+
+ActivateProfile(Index) {
+	Try {
+		ActiveProfile.Choose(Index)
+		LoadProfileFunction()
+		Try SAPI.Speak(ActiveProfile.Text, 1)
+		Catch {
+			SoundBeep
+		}
+	}
+	Catch {
+		Try SAPI.Speak("Unable to load " Ordinal(Index) " profile", 1)
+		Catch {
+			SoundBeep
+			SoundBeep
+		}
+	}
+}
+
+Ordinal(n) {
+	if (n >= 11 && n <= 13)
+		return n "th"
+	switch Mod(n, 10) {
+		case 1: return n "st"
+		case 2: return n "nd"
+		case 3: return n "rd"
+		default: return n "th"
 	}
 }
