@@ -290,7 +290,7 @@ ConstructGUI() {
 		TextToSpeech.Value := IniRead("HD2 Config.ini", "Settings", "TextToSpeech", 0)
 		Global ProfileTTS := HotkeyGUI.Add("CheckBox", "vProfileTTS Section xs", "Read out loud activated profiles's name when activated with a hotkey (CTRL+0-9)")
 		ProfileTTS.OnEvent("Click", ChangeSetting.Bind("ProfileTTS"))
-		ProfileTTS.Value := IniRead("HD2 Config.ini", "Settings", "ProfileTTS", 0)
+		ProfileTTS.Value := IniRead("HD2 Config.ini", "Settings", "ProfileTTS", 1)
 		HotkeyGUI.Add("Text", "Section y+15 xp+18", "Voice")
 		Voice := HotkeyGUI.Add("DropDownList", "ys yp-4 w300 Background4B4B4B cBABABA", Voices)
 		Voice.OnEvent("Change", ChangeVoice.Bind("Voice"))
@@ -811,3 +811,4 @@ Ordinal(n) {
 		default: return n "th"
 	}
 }
+
