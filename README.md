@@ -12,5 +12,4 @@
 
 * The script defaults to WASD and Control keys for inputting the stratagems.
 * If the macro fails to input stratagems properly, increase the minimum delay.
-
-
+* You can switch between profiles with CTRL+0-9 hotkeys.
