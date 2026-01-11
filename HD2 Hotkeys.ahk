@@ -1,6 +1,6 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2026-01-02
+Version 2026-01-11
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
@@ -121,6 +121,8 @@ ConstructGUI() {
 	HotkeyGUI.Title := "HELLDIVERS™ 2 Stratagem Hotkeys"
 	HotkeyGUI.BackColor := "171717"
 	HotkeyGUI.SetFont("cBABABA")
+	if VerCompare(A_OSVersion, "10.0.17763") >= 0
+		DllCall("dwmapi\DwmSetWindowAttribute", "Ptr", HotkeyGUI.Hwnd, "Int", 20, "Int*", 1, "Int", 4)
 	Try HotkeyGUI.Add("Picture", "w776 h-1", "resources\HD2 Banner.png")
 	Tab := HotkeyGUI.Add("Tab3", "Background383333 cE1CB00", [" Stratagems ", " F-keys ", " Settings ", " About "])
 	Tab.SetFont("s10")
@@ -304,7 +306,7 @@ ConstructGUI() {
 
 	Tab.UseTab(4)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2026-01-02")
+	HotkeyGUI.Add("Text", "xs", "Version 2026-01-11")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
@@ -327,6 +329,9 @@ ConstructGUI() {
 	DeleteProfile := HotkeyGUI.Add("Button", "ys yp-1 w80 Background171717", "Delete profile")
 	DeleteProfile.OnEvent("Click", DeleteProfileClick)
 	LoadProfile
+	Global ProfileHotkeys := HotkeyGUI.Add("CheckBox", "vProfileHotkeys ys yp+5", "Enable profile switch hotkeys (CTRL+0-9)")
+	ProfileHotkeys.OnEvent("Click", ChangeSetting.Bind("ProfileHotkeys"))
+	ProfileHotkeys.Value := IniRead("HD2 Config.ini", "Settings", "ProfileHotkeys", 0)
 
 	HotkeyGUI.OnEvent("Close", (*) => ExitApp())
 	HotkeyGUI.Show
@@ -770,7 +775,7 @@ ExecuteFKey(FKey) {
 	SendEvent(MarkupTags)
 }
 
-#HotIf WinActive("HELLDIVERS™ 2")
+#HotIf ProfileHotkeys.Value && WinActive("HELLDIVERS™ 2")
 ^1::ActivateProfile(1)
 ^2::ActivateProfile(2)
 ^3::ActivateProfile(3)
@@ -811,4 +816,3 @@ Ordinal(n) {
 		default: return n "th"
 	}
 }
-
