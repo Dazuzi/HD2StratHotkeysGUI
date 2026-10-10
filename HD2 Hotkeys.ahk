@@ -1,13 +1,13 @@
 /*
 Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-Version 2026-01-11
+Version 2026-10-10
 
 https://github.com/Dazuzi/HD2StratHotkeysGUI
 */
 
 ;@Ahk2Exe-SetName HELLDIVERS™ 2 Stratagem Hotkeys
 ;@Ahk2Exe-SetDescription Helldivers 2 Stratagem AutoHotkey v2 script with GUI
-;@Ahk2Exe-SetFileVersion 2026.01.02.0
+;@Ahk2Exe-SetFileVersion 2026.10.10.0
 
 #Requires Autohotkey v2
 #SingleInstance Force
@@ -29,6 +29,13 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Mission",				Name:"Dark Fluid Vessel",					TTSName:"Dark Fluid Vessel",			Icon:"Dark Fluid Vessel.png",			Throwable:True,		Keys:[1, 3, 4, 2, 1, 1]},
 {Category:"Mission",				Name:"Tectonic Drill",						TTSName:"Tectonic Drill",				Icon:"Tectonic Drill.png",				Throwable:False,	Keys:[1, 2, 1, 2, 1, 2]},
 {Category:"Mission",				Name:"Hive Breaker Drill",					TTSName:"Hive Breaker Drill",			Icon:"Hive Breaker Drill.png",			Throwable:False,	Keys:[3, 1, 2, 4, 2, 2]},
+{Category:"Mission",				Name:"Aquifer Drill",						TTSName:"Aquifer Drill",				Icon:"Aquifer Drill.png",				Throwable:False,	Keys:[3, 3, 3, 1, 2, 4, 2, 2]},
+{Category:"Mission",				Name:"Activate E-711 Extraction Drill",		TTSName:"Extraction Drill",				Icon:"Extraction Drill.png",				Throwable:False,	Keys:[2, 2, 3, 3, 2, 2]},
+{Category:"Mission",				Name:"Reinforcement Pods",					TTSName:"Reinforcement Pods",			Icon:"Reinforcement Pods.png",			Throwable:False,	Keys:[3, 2, 1, 1, 1]},
+{Category:"Mission",				Name:"Call In Super Destroyer",				TTSName:"Call In Super Destroyer",		Icon:"Call In Super Destroyer.png",		Throwable:False,	Keys:[1, 1, 2, 2, 3, 4, 3, 4]},
+{Category:"Mission",				Name:"Portable Comms Relay",				TTSName:"Portable Comms Relay",			Icon:"Portable Comms Relay.png",		Throwable:False,	Keys:[1, 1, 2, 2, 3, 3, 2]},
+{Category:"Mission",				Name:"Tactical Video Camera",				TTSName:"Tactical Video Camera",		Icon:"Tactical Video Camera.png",		Throwable:False,	Keys:[4, 2, 2, 1, 3, 3, 1]},
+{Category:"Mission",				Name:"Cargo Container",						TTSName:"Cargo Container",				Icon:"Cargo Container.png",				Throwable:False,	Keys:[1, 1, 2, 2, 4, 2]},
 {Category:"Offensive: orbital",		Name:"Orbital Precision Strike",			TTSName:"Orbital Precision Strike",		Icon:"Orbital Precision Strike.png",	Throwable:True,		Keys:[4, 4, 1]},
 {Category:"Offensive: orbital",		Name:"Orbital Gatling Barrage",				TTSName:"Orbital Gatling Barrage",		Icon:"Orbital Gatling Barrage.png",		Throwable:True,		Keys:[4, 2, 3, 1, 1]},
 {Category:"Offensive: orbital",		Name:"Orbital Airburst Strike",				TTSName:"Orbital Airbust Strike",		Icon:"Orbital Airburst Strike.png",		Throwable:True,		Keys:[4, 4, 4]},
@@ -106,7 +113,21 @@ StratagemArray	:= [{Category:"No Stratagem", Name:"No Stratagem", Icon:"No Strat
 {Category:"Supply: weapon",			Name:"S-11 Speargun",						TTSName:"Speargun",						Icon:"Speargun.png",					Throwable:True,		Keys:[2, 4, 2, 3, 1, 4]},
 {Category:"Supply: weapon",			Name:"M-1000 Maxigun",						TTSName:"Maxigun",						Icon:"Maxigun.png",						Throwable:True,		Keys:[2, 3, 4, 2, 1, 1]},
 {Category:"Supply: weapon",			Name:"CQC-9 Defoliation Tool",				TTSName:"Defoliation Tool",				Icon:"Defoliation Tool.png",			Throwable:True,		Keys:[2, 3, 4, 4, 2]},
-{Category:"Supply: backpack",		Name:"`"Guard Dog`" Hot Dog",				TTSName:"Hot Dog",						Icon:"Hot Dog.png",						Throwable:True,		Keys:[2, 1, 3, 1, 3, 3]}
+{Category:"Supply: backpack",		Name:"`"Guard Dog`" Hot Dog",				TTSName:"Hot Dog",						Icon:"Hot Dog.png",						Throwable:True,		Keys:[2, 1, 3, 1, 3, 3]},
+{Category:"Supply: other",			Name:"TD-220 Bastion MK XVI",				TTSName:"Bastion",						Icon:"Bastion MK XVI.png",				Throwable:True,		Keys:[3, 2, 4, 2, 3, 2, 1, 2, 1]},
+{Category:"Supply: backpack",		Name:"B/MD C4 Pack",						TTSName:"C4 Pack",						Icon:"C4 Pack.png",						Throwable:True,		Keys:[2, 4, 1, 1, 4, 1]},
+{Category:"Supply: weapon",			Name:"EAT-411 Leveller",					TTSName:"Leveller",						Icon:"Leveller.png",					Throwable:True,		Keys:[2, 2, 3, 1, 2]},
+{Category:"Supply: weapon",			Name:"CQC-20 Breaching Hammer",				TTSName:"Breaching Hammer",				Icon:"Breaching Hammer.png",			Throwable:True,		Keys:[2, 3, 4, 3, 1]},
+{Category:"Supply: weapon",			Name:"GL-28 Belt-Fed Grenade Launcher",		TTSName:"Belt-Fed Greande Launcher",	Icon:"Belt-Fed Greande Launcher.png",	Throwable:True,		Keys:[2, 3, 1, 3, 1, 1]},
+{Category:"Supply: weapon",			Name:"B/FLAM-80 Cremator",					TTSName:"Cremator",						Icon:"Cremator.png",					Throwable:True,		Keys:[2, 2, 4, 2, 1, 1]},
+{Category:"Supply: sentry",			Name:"A/GM-17 Gas Mortar Sentry",			TTSName:"Gas Mortar Sentry",			Icon:"Gas Mortar Sentry.png",			Throwable:True,		Keys:[2, 1, 4, 2, 3]},
+{Category:"Supply: other",			Name:"EXO-55 Breakthrough Exosuit",			TTSName:"Breakthrough Exosuit",			Icon:"Breakthrough Exosuit.png",		Throwable:True,		Keys:[3, 2, 4, 2, 4, 2, 1]},
+{Category:"Supply: other",			Name:"EXO-51 Lumberer Exosuit",				TTSName:"Lumberer Exosuit",				Icon:"Lumberer Exosuit.png",			Throwable:True,		Keys:[3, 2, 4, 1, 4, 3, 1]},
+{Category:"Supply: weapon",			Name:"MGX-42 Bullet Storm",					TTSName:"Bullet Storm",					Icon:"Bullet Storm.png",				Throwable:True,		Keys:[2, 3, 2, 4, 1, 3]},
+{Category:"Supply: weapon",			Name:"40-K Meltagun",						TTSName:"Meltagun",						Icon:"Meltagun.png",						Throwable:True,		Keys:[2, 3, 1, 3, 3, 2]},
+{Category:"Supply: other",			Name:"M-103 Supply FRV",					TTSName:"Supply FRV",					Icon:"Supply FRV.png",						Throwable:True,		Keys:[3, 2, 3, 3, 2, 1, 4]},
+{Category:"Supply: other",			Name:"TD-110 Maelstrom",					TTSName:"Maelstrom",					Icon:"Maelstrom.png",						Throwable:True,		Keys:[3, 2, 4, 2, 3, 2, 1, 3, 4]},
+{Category:"Supply: other",			Name:"M-104 Incinerator FRV",				TTSName:"Incinerator FRV",				Icon:"Incinerator FRV.png",					Throwable:True,		Keys:[3, 2, 4, 3, 2, 1, 1]}
 ]
 
 FKeyConfigs := Array() 
@@ -306,7 +327,7 @@ ConstructGUI() {
 
 	Tab.UseTab(4)
 	HotkeyGUI.Add("Text", "Section h18 w400", "Helldivers 2 Stratagem AutoHotkey v2 script with GUI").SetFont("bold s10")
-	HotkeyGUI.Add("Text", "xs", "Version 2026-01-11")
+	HotkeyGUI.Add("Text", "xs", "Version 2026-10-10")
 	HotkeyGUI.Add("Link", "xs y+20", '<a href="https://github.com/Dazuzi/HD2StratHotkeysGUI">https://github.com/Dazuzi/HD2StratHotkeysGUI</a>')
 
 	Tab.UseTab()
